@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Panel Pterodactyl - DzzXNzz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        @keyframes fadeInUp    { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes shineBar    { 0%{background-position:0%} 100%{background-position:200%} }
+        @keyframes topRainbow  { 0%{background-position:0% 0%} 100%{background-position:100% 0%} }
+        @keyframes sideRainbow { 0%{background-position:0% 0%} 100%{background-position:0% 100%} }
+        @keyframes rainbowShift{ 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        @keyframes goldShimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+        @keyframes cardGlow    { 0%,100%{box-shadow:0 8px 30px rgba(0,0,0,0.5),0 0 20px rgba(0,229,255,0.08)} 50%{box-shadow:0 8px 30px rgba(0,0,0,0.5),0 0 35px rgba(0,229,255,0.18)} }
+        @keyframes floatBadge  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-3px)} }
+
+        .main-content { padding: 100px 20px 50px; max-width: 960px; margin: 0 auto; }
+        .page-header  { text-align: center; margin-bottom: 36px; animation: fadeInUp 0.6s ease; }
+        .rainbow-text {
+            font-family: 'Righteous', cursive; font-size: 44px;
+            background: linear-gradient(135deg, #00e5ff, #00ff88, #ff4de4, #ffe000);
+            background-size: 300% 300%; -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 20px rgba(0,229,255,0.5));
+            margin-bottom: 8px; animation: rainbowShift 5s ease infinite;
+        }
+        .header-subtitle { font-size: 15px; color: rgba(255,255,255,0.5); font-weight: 600; }
+
+        /* ===== TABS ===== */
+        .duration-wrapper {
+            display: flex; flex-direction: column; align-items: center;
+            gap: 8px; margin-bottom: 28px; animation: fadeInUp 0.6s 0.1s ease both;
+        }
+        .duration-group {
+            display: flex; gap: 0; background: rgba(13,15,25,0.8);
+            border: 1px solid rgba(0,229,255,0.2); border-radius: 14px;
+            overflow: hidden; padding: 4px; width: 100%;
+        }
+        .duration-btn {
+            flex: 1; background: transparent; border: none; color: rgba(255,255,255,0.4);
+            font-family: 'Nunito', sans-serif; font-size: 14px; font-weight: 800;
+            padding: 10px 0; border-radius: 10px; cursor: pointer;
+            transition: 0.25s; text-align: center;
+        }
+        .duration-btn:hover  { color: #00e5ff; background: rgba(0,229,255,0.08); }
+        .duration-btn.active {
+            background: linear-gradient(135deg, #00e5ff, #00ff88);
+            color: #06070f; font-weight: 900;
+            box-shadow: 0 4px 18px rgba(0,229,255,0.35);
+        }
+        /* Unlimited tab — baris ke-2, lebar penuh */
+        .unlimited-row {
+            width: 100%; background: rgba(13,15,25,0.8);
+            border: 1px solid rgba(0,229,255,0.2); border-radius: 14px; padding: 4px;
+        }
+        .unlimited-tab {
+            width: 100%; background: transparent; border: none;
+            color: rgba(255,255,255,0.4); font-family: 'Nunito', sans-serif;
+            font-size: 14px; font-weight: 800; padding: 10px 0;
+            border-radius: 10px; cursor: pointer; transition: 0.25s;
+            letter-spacing: 1px; text-align: center; display: block;
+        }
+        .unlimited-tab:hover { color: #bf7fff; background: rgba(123,0,255,0.08); }
+        .unlimited-tab.active {
+            background: linear-gradient(135deg, #7b00ff, #cc00ff, #ff00aa);
+            color: #fff; font-weight: 900;
+            box-shadow: 0 4px 22px rgba(180,0,255,0.5);
+        }
+
+        .divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(0,229,255,0.4), transparent);
+            margin: 0 0 28px;
+        }
+
+        /* ===== CARDS CONTAINER ===== */
+        .cards-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 20px;
+        }
+        /* ===== UJI COBA TAB ===== */
+        .ujicoba-row {
+            width: 100%; background: rgba(13,15,25,0.8);
+            border: 1px solid rgba(0,255,136,0.2); border-radius: 14px; padding: 4px;
+        }
+        .ujicoba-tab {
+            width: 100%; background: transparent; border: none;
+            color: rgba(255,255,255,0.4); font-family: 'Nunito', sans-serif;
+            font-size: 14px; font-weight: 800; padding: 10px 0;
+            border-radius: 10px; cursor: pointer; transition: 0.25s;
+            letter-spacing: 1px; text-align: center; display: block;
+        }
+        .ujicoba-tab:hover { color: #00ff88; background: rgba(0,255,136,0.08); }
+        .ujicoba-tab.active {
+            background: linear-gradient(135deg, #00ff88, #00e5ff);
+            color: #06070f; font-weight: 900;
+            box-shadow: 0 4px 22px rgba(0,255,136,0.4);
+        }
+
+        /* ===== UJI COBA CARD ===== */
+        .ujicoba-card {
+            position: relative; background: rgba(0,12,8,0.95);
+            border-radius: 26px; padding: 32px 28px;
+            border: 1px solid rgba(0,255,136,0.3);
+            box-shadow: 0 0 50px rgba(0,255,136,0.12), 0 0 100px rgba(0,255,136,0.05), 0 20px 50px rgba(0,0,0,0.7);
+            overflow: hidden; transition: 0.35s cubic-bezier(0.34,1.56,0.64,1);
+            animation: fadeInUp 0.6s ease both;
+        }
+        .ujicoba-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 4px;
+            background: linear-gradient(90deg, #00ff88, #00e5ff, #00ff88);
+            background-size: 200% 100%; animation: shineBar 2s linear infinite;
+        }
+        .ujicoba-card::after {
+            content: ''; position: absolute;
+            bottom: -60px; right: -60px;
+            width: 180px; height: 180px; border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,255,136,0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .ujicoba-card:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(0,255,136,0.6); box-shadow: 0 0 70px rgba(0,255,136,0.2), 0 25px 60px rgba(0,0,0,0.7); }
+        .ujicoba-badge {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: rgba(0,255,136,0.12); border: 1.5px solid rgba(0,255,136,0.4);
+            color: #00ff88; font-size: 12px; font-weight: 900;
+            padding: 6px 18px; border-radius: 30px; margin-bottom: 20px;
+            letter-spacing: 1.5px; text-transform: uppercase;
+            box-shadow: 0 0 15px rgba(0,255,136,0.2);
+        }
+        .ujicoba-card .card-badge {
+            font-size: 42px !important;
+        }
+        .ujicoba-card .spec-list {
+            margin: 16px 0; padding: 14px 0;
+            border-top: 1px solid rgba(0,255,136,0.1);
+            border-bottom: 1px solid rgba(0,255,136,0.1);
+        }
+        .ujicoba-card .spec-item {
+            padding: 9px 0; font-size: 15px;
+        }
+        .ujicoba-card .spec-label { color: rgba(255,255,255,0.4); font-weight: 700; }
+        .ujicoba-card .spec-value { color: #fff; font-weight: 900; font-size: 15px; }
+        .ujicoba-card .price-wrap { margin: 20px 0 18px; }
+        .ujicoba-card .price-tag  { font-size: 38px !important; }
+        .ujicoba-card .price-sub  { font-size: 13px; }
+        .btn-ujicoba {
+            width: 100%; padding: 16px;
+            background: linear-gradient(135deg, rgba(0,255,136,0.15), rgba(0,229,255,0.08));
+            border: 2px solid rgba(0,255,136,0.5); border-radius: 50px; color: #00ff88;
+            font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900;
+            cursor: pointer; transition: 0.25s; display: flex; align-items: center; justify-content: center; gap: 10px;
+            box-shadow: 0 4px 20px rgba(0,255,136,0.2), inset 0 0 20px rgba(0,255,136,0.03);
+            letter-spacing: 0.5px;
+        }
+        .btn-ujicoba:hover { background: linear-gradient(135deg,#00ff88,#00e5ff); color: #06070f; border-color: #00ff88; box-shadow: 0 8px 35px rgba(0,255,136,0.5); transform: translateY(-3px); }
+
+        .cards-container.hidden  { display: none; }
+        .unlimited-container { display: none; flex-direction: column; gap: 24px; max-width: 500px; margin: 0 auto; width: 100%; }
+
+        /* ===== 10 HARI — LOW QUALITY CARDS ===== */
+        @keyframes urgentPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
+        @keyframes stockBlink  { 0%,100%{border-color:rgba(255,85,0,0.5)} 50%{border-color:rgba(255,85,0,0.15)} }
+
+        .low-card {
+            position: relative; background: rgba(10,8,6,0.92);
+            border-radius: 18px; padding: 22px;
+            border: 1px solid rgba(255,85,0,0.2);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5), 0 0 15px rgba(255,85,0,0.05);
+            overflow: hidden; transition: 0.3s;
+            animation: fadeInUp 0.6s ease both, stockBlink 2.5s ease-in-out infinite;
+        }
+        .low-card::before {
+            content: 'TERBATAS'; position: absolute; top: 14px; right: -22px;
+            background: linear-gradient(135deg, #ff5500, #ff8800);
+            color: #fff; font-size: 9px; font-weight: 900;
+            padding: 3px 28px; letter-spacing: 1px; transform: rotate(35deg);
+        }
+        .low-card::after {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, #ff5500, #ffaa00, #ff5500);
+            background-size: 200% 100%; animation: shineBar 2s linear infinite;
+        }
+        .low-card:hover { transform: translateY(-4px); border-color: rgba(255,85,0,0.4); }
+        .low-stock-badge { display:inline-flex; align-items:center; gap:6px; background:rgba(255,85,0,0.1); border:1px solid rgba(255,85,0,0.3); color:#ff7733; font-size:10px; font-weight:900; padding:4px 12px; border-radius:20px; margin-bottom:14px; text-transform:uppercase; }
+        .low-stock-badge i { animation: urgentPulse 1s infinite; font-size:8px; }
+        .low-card .card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+        .low-card .card-badge  { font-family:'Righteous',cursive; font-size:28px; color:#fff; }
+        .low-card .card-tier   { font-size:10px; color:#ff7733; background:rgba(255,85,0,0.08); padding:3px 10px; border-radius:20px; border:1px solid rgba(255,85,0,0.25); font-weight:800; }
+        .low-card .spec-list   { margin:10px 0; padding:10px 0; border-top:1px solid rgba(255,255,255,0.05); border-bottom:1px solid rgba(255,255,255,0.05); }
+        .low-card .spec-item   { display:flex; justify-content:space-between; font-size:13px; padding:5px 0; }
+        .low-card .spec-label  { color:rgba(255,255,255,0.35); font-weight:700; }
+        .low-card .spec-value  { color:rgba(255,255,255,0.75); font-weight:900; }
+        .low-stock-bar { margin:10px 0; }
+        .low-stock-label { font-size:10px; font-weight:800; color:rgba(255,255,255,0.3); display:flex; justify-content:space-between; margin-bottom:5px; }
+        .low-stock-label span:last-child { color:#ff7733; }
+        .low-stock-track { height:4px; background:rgba(255,255,255,0.07); border-radius:4px; overflow:hidden; }
+        .low-stock-fill  { height:100%; background:linear-gradient(90deg,#ff5500,#ffaa00); border-radius:4px; }
+        .low-price-wrap  { text-align:center; margin:14px 0 12px; }
+        .low-price-old   { font-size:13px; color:rgba(255,255,255,0.28); text-decoration:line-through; font-family:'Nunito',sans-serif; font-weight:700; display:block; margin-bottom:2px; }
+        .low-price-new   { font-family:'Righteous',cursive; font-size:26px; color:#ff8833; filter:drop-shadow(0 0 8px rgba(255,136,0,0.4)); display:block; }
+        .low-price-new span { font-size:12px; color:rgba(255,255,255,0.35); font-family:'Nunito',sans-serif; font-weight:700; }
+        .btn-pesan-low {
+            width:100%; padding:13px; background:linear-gradient(135deg,rgba(255,85,0,0.15),rgba(255,136,0,0.1));
+            border:1.5px solid rgba(255,85,0,0.35); border-radius:40px; color:#ff8833;
+            font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.25s;
+            display:flex; align-items:center; justify-content:center; gap:8px;
+        }
+        .btn-pesan-low:hover { background:linear-gradient(135deg,#ff5500,#ff8800); color:#fff; border-color:#ff5500; box-shadow:0 0 25px rgba(255,85,0,0.4); transform:translateY(-2px); }
+
+        /* ===== 20 HARI — STANDARD CARDS ===== */
+        .panel-card {
+            position: relative; background: rgba(10,12,22,0.92);
+            backdrop-filter: blur(16px); border-radius: 22px; padding: 24px;
+            border: 1px solid rgba(0,229,255,0.15);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.5), 0 0 20px rgba(0,229,255,0.08);
+            overflow: hidden; transition: 0.35s cubic-bezier(0.34,1.56,0.64,1);
+            animation: fadeInUp 0.6s ease both, cardGlow 3s ease-in-out infinite;
+        }
+        .panel-card::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
+            background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb, #1dd1a1, #f368e0, #ff6b6b);
+            background-size: 200% 100%; animation: topRainbow 3s linear infinite;
+            border-radius: 22px 22px 0 0;
+        }
+        .panel-card:hover { transform: translateY(-8px) scale(1.01); border-color: rgba(0,229,255,0.4); box-shadow: 0 20px 50px rgba(0,229,255,0.2); }
+        .card-popular-badge { display:inline-flex; align-items:center; gap:6px; background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,255,136,0.1)); border:1px solid rgba(0,229,255,0.3); color:#00e5ff; font-size:10px; font-weight:900; padding:4px 12px; border-radius:20px; margin-bottom:14px; text-transform:uppercase; animation:floatBadge 2.5s ease-in-out infinite; }
+        .card-popular-badge.hot  { background:linear-gradient(135deg,rgba(255,224,0,0.15),rgba(255,170,0,0.1)); border-color:rgba(255,224,0,0.3); color:#ffe000; }
+        .card-popular-badge.best { background:linear-gradient(135deg,rgba(255,77,228,0.15),rgba(191,0,255,0.1)); border-color:rgba(255,77,228,0.3); color:#ff4de4; }
+        .card-header  { display:flex; align-items:center; justify-content:space-between; margin-bottom:14px; }
+        .card-badge   { font-family:'Righteous',cursive; font-size:30px; color:#fff; filter:drop-shadow(0 0 12px rgba(0,229,255,0.6)); }
+        .card-tier    { font-size:11px; color:#00e5ff; background:rgba(0,229,255,0.08); padding:4px 12px; border-radius:20px; border:1px solid rgba(0,229,255,0.25); font-weight:800; }
+        .card-tier.tier-mid  { color:#ffe000; border-color:rgba(255,224,0,0.3); background:rgba(255,224,0,0.08); }
+        .card-tier.tier-high { color:#ff4de4; border-color:rgba(255,77,228,0.3); background:rgba(255,77,228,0.08); }
+        .spec-list  { margin:12px 0; padding:10px 0; border-top:1px solid rgba(0,229,255,0.08); border-bottom:1px solid rgba(0,229,255,0.08); }
+        .spec-item  { display:flex; justify-content:space-between; align-items:center; font-size:14px; padding:7px 0; }
+        .spec-label { color:rgba(255,255,255,0.4); font-weight:700; }
+        .spec-value { color:#fff; font-weight:900; }
+        .spec-item.ram-row .spec-value { color:#00e5ff; }
+        .spec-item.tier-mid  .spec-value { color:#ffe000; }
+        .spec-item.tier-high .spec-value { color:#ff4de4; }
+        .price-wrap { text-align:center; margin:14px 0; }
+        .price-tag  { font-family:'Righteous',cursive; font-size:30px; background:linear-gradient(135deg,#00e5ff,#00ff88); -webkit-background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 12px rgba(0,229,255,0.35)); display:block; }
+        .price-tag.mid-price  { background:linear-gradient(135deg,#ffe000,#ff8800); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .price-tag.high-price { background:linear-gradient(135deg,#ff4de4,#bf00ff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .price-sub  { font-size:12px; color:rgba(255,255,255,0.35); font-family:'Nunito',sans-serif; font-weight:700; display:block; margin-top:2px; }
+        .btn-pesan  { width:100%; padding:14px; background:linear-gradient(135deg,rgba(0,229,255,0.15),rgba(0,255,136,0.08)); border:1.5px solid rgba(0,229,255,0.5); border-radius:40px; color:#00e5ff; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.25s; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 18px rgba(0,229,255,0.15); }
+        .btn-pesan.btn-mid  { border-color:rgba(255,224,0,0.5); color:#ffe000; background:linear-gradient(135deg,rgba(255,224,0,0.12),rgba(255,136,0,0.08)); }
+        .btn-pesan.btn-high { border-color:rgba(255,77,228,0.5); color:#ff4de4; background:linear-gradient(135deg,rgba(255,77,228,0.12),rgba(191,0,255,0.08)); }
+        .btn-pesan:hover      { background:linear-gradient(135deg,#00e5ff,#00ff88); color:#06070f; border-color:#00e5ff; box-shadow:0 6px 28px rgba(0,229,255,0.5); transform:translateY(-2px); }
+        .btn-pesan.btn-mid:hover  { background:linear-gradient(135deg,#ffe000,#ff8800); color:#06070f; border-color:#ffe000; }
+        .btn-pesan.btn-high:hover { background:linear-gradient(135deg,#ff4de4,#bf00ff); color:#fff; border-color:#ff4de4; }
+
+        /* ===== 30 HARI — VIP CARDS ===== */
+        .vip-card {
+            background: #090b14; border-radius: 20px; padding: 28px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255,255,255,0.04);
+            transition: 0.3s; animation: fadeInUp 0.6s ease both;
+        }
+        .vip-card::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 6px; height: 100%;
+            background: linear-gradient(180deg,#ff6b6b,#feca57,#48dbfb,#1dd1a1,#f368e0,#ff6b6b);
+            background-size: 100% 300%; animation: sideRainbow 6s linear infinite;
+            border-radius: 20px 0 0 20px;
+        }
+        .vip-card:hover { transform: translateY(-5px); box-shadow: 0 25px 60px rgba(0,0,0,0.8); }
+        .badge-vip  { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(145deg,#ffd700,#ffaa00); color:#000; font-size:13px; font-weight:900; padding:8px 18px; border-radius:40px; margin-bottom:18px; text-transform:uppercase; letter-spacing:1px; box-shadow:0 5px 20px rgba(255,215,0,0.4); transform:rotate(-0.8deg); }
+        .vip-card .card-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:18px; flex-wrap:wrap; gap:10px; }
+        .vip-card .card-title  { font-family:'Righteous',cursive; font-size:26px; color:#fff; margin:0; }
+        .dedicated-badge { font-size:11px; color:#aaccff; background:rgba(170,204,255,0.08); padding:5px 12px; border-radius:30px; border:1px solid rgba(170,204,255,0.2); display:inline-flex; align-items:center; gap:5px; font-weight:800; }
+        .spec-grid   { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0; }
+        .grid-item   { background:rgba(0,0,0,0.3); border:1px solid rgba(0,229,255,0.25); border-radius:12px; padding:14px 8px; text-align:center; transition:0.2s; }
+        .grid-item:hover { border-color:#00e5ff; box-shadow:0 0 12px rgba(0,229,255,0.2); }
+        .grid-item.disk-full { grid-column:span 2; }
+        .grid-label  { font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800; display:block; }
+        .grid-value  { font-family:'Righteous',cursive; font-size:18px; color:#fff; }
+        .price-section { text-align:center; margin:16px 0; }
+        .price-label   { font-size:11px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; display:block; font-weight:800; }
+        .price-vip     { font-family:'Righteous',cursive; font-size:32px; color:#fff; line-height:1.2; }
+        .currency      { font-size:16px; color:#999; margin-right:4px; font-family:'Nunito',sans-serif; }
+        .btn-order { width:100%; padding:14px; background:linear-gradient(135deg,rgba(255,215,0,0.15),rgba(255,170,0,0.1)); border:1.5px solid rgba(255,200,0,0.4); border-radius:40px; color:#ffd700; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.25s; display:flex; align-items:center; justify-content:center; gap:8px; letter-spacing:0.5px; box-shadow:0 4px 20px rgba(255,200,0,0.15); }
+        .btn-order:hover { background:linear-gradient(135deg,#ffd700,#ffaa00); color:#06070f; border-color:#ffd700; box-shadow:0 6px 28px rgba(255,200,0,0.4); transform:translateY(-2px); }
+
+        /* ===== UNLIMITED CARDS ===== */
+        @keyframes unliGoldShimmer { 0%,100%{background-position:0% 50%} 50%{background-position:100% 50%} }
+
+        /* Base unlimited card — mirip VIP tapi lebih premium */
+        .unli-card {
+            border-radius: 22px; padding: 28px;
+            position: relative; overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            transition: 0.3s; animation: fadeInUp 0.6s ease both;
+        }
+        .unli-card:hover { transform: translateY(-6px); }
+
+        /* Card 1 — 10 Hari: Gold Silver */
+        .unli-bronze {
+            background: #09080a;
+            border: 1px solid rgba(192,160,80,0.3);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 30px rgba(192,160,80,0.08);
+        }
+        .unli-bronze::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 6px; height: 100%;
+            background: linear-gradient(180deg, #c0a050, #e8d080, #c0a050, #a08030, #c0a050);
+            background-size: 100% 300%; animation: sideRainbow 5s linear infinite;
+            border-radius: 22px 0 0 22px;
+        }
+        .badge-bronze { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(145deg,#c0a050,#a08030); color:#000; font-size:13px; font-weight:900; padding:8px 18px; border-radius:40px; margin-bottom:18px; text-transform:uppercase; letter-spacing:1px; box-shadow:0 5px 20px rgba(192,160,80,0.35); }
+        .bronze-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0; }
+        .bronze-item { background:rgba(0,0,0,0.3); border:1px solid rgba(192,160,80,0.2); border-radius:12px; padding:14px 8px; text-align:center; }
+        .bronze-item.wide { grid-column:span 2; }
+        .bronze-label { font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800; display:block; }
+        .bronze-value { font-family:'Righteous',cursive; font-size:18px; color:#e8d080; }
+        .price-bronze { font-family:'Righteous',cursive; font-size:32px; color:#e8d080; filter:drop-shadow(0 0 10px rgba(192,160,80,0.4)); }
+        .btn-bronze { width:100%; padding:14px; background:linear-gradient(135deg,rgba(192,160,80,0.15),rgba(160,128,48,0.1)); border:1.5px solid rgba(192,160,80,0.4); border-radius:40px; color:#e8d080; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.25s; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 20px rgba(192,160,80,0.15); }
+        .btn-bronze:hover { background:linear-gradient(135deg,#c0a050,#a08030); color:#06070f; border-color:#c0a050; box-shadow:0 6px 28px rgba(192,160,80,0.4); transform:translateY(-2px); }
+
+        /* Card 2 — 20 Hari: Gold (sama seperti VIP tapi lebih bright) */
+        .unli-gold {
+            background: #09080a;
+            border: 1px solid rgba(255,200,0,0.35);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7), 0 0 40px rgba(255,200,0,0.1);
+        }
+        .unli-gold::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 6px; height: 100%;
+            background: linear-gradient(180deg, #ffd700, #ffec6e, #ffd700, #ffaa00, #ffd700);
+            background-size: 100% 300%; animation: sideRainbow 4s linear infinite;
+            border-radius: 22px 0 0 22px;
+        }
+        .badge-gold { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(145deg,#ffd700,#ffaa00); color:#000; font-size:13px; font-weight:900; padding:8px 18px; border-radius:40px; margin-bottom:18px; text-transform:uppercase; letter-spacing:1px; box-shadow:0 5px 25px rgba(255,215,0,0.45); }
+        .gold-grid  { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0; }
+        .gold-item  { background:rgba(0,0,0,0.3); border:1px solid rgba(255,200,0,0.25); border-radius:12px; padding:14px 8px; text-align:center; transition:0.2s; }
+        .gold-item:hover { border-color:#ffd700; box-shadow:0 0 12px rgba(255,200,0,0.2); }
+        .gold-item.wide { grid-column:span 2; }
+        .gold-label { font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800; display:block; }
+        .gold-value { font-family:'Righteous',cursive; font-size:18px; color:#ffd700; }
+        .price-gold { font-family:'Righteous',cursive; font-size:32px; color:#ffd700; filter:drop-shadow(0 0 12px rgba(255,200,0,0.5)); }
+        .btn-gold   { width:100%; padding:14px; background:linear-gradient(135deg,rgba(255,215,0,0.18),rgba(255,170,0,0.12)); border:1.5px solid rgba(255,200,0,0.5); border-radius:40px; color:#ffd700; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.25s; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 20px rgba(255,200,0,0.2); }
+        .btn-gold:hover { background:linear-gradient(135deg,#ffd700,#ffaa00); color:#06070f; border-color:#ffd700; box-shadow:0 6px 30px rgba(255,200,0,0.5); transform:translateY(-2px); }
+
+        /* Card 3 — 30 Hari: Diamond (putih perak mewah) */
+        .unli-diamond {
+            background: linear-gradient(135deg, #0a0a12, #08080f);
+            border: 1px solid rgba(200,220,255,0.35);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8), 0 0 50px rgba(200,220,255,0.08);
+        }
+        .unli-diamond::before {
+            content: ''; position: absolute; top: 0; left: 0;
+            width: 6px; height: 100%;
+            background: linear-gradient(180deg,#e8f0ff,#aaccff,#ffffff,#aaccff,#e8f0ff);
+            background-size: 100% 300%; animation: sideRainbow 3s linear infinite;
+            border-radius: 22px 0 0 22px;
+        }
+        .badge-diamond { display:inline-flex; align-items:center; gap:8px; background:linear-gradient(145deg,#e8f0ff,#aaccff); color:#06070f; font-size:13px; font-weight:900; padding:8px 18px; border-radius:40px; margin-bottom:18px; text-transform:uppercase; letter-spacing:1px; box-shadow:0 5px 25px rgba(200,220,255,0.3); }
+        .diamond-grid { display:grid; grid-template-columns:repeat(2,1fr); gap:10px; margin:18px 0; }
+        .diamond-item { background:rgba(200,220,255,0.04); border:1px solid rgba(200,220,255,0.15); border-radius:12px; padding:14px 8px; text-align:center; transition:0.2s; }
+        .diamond-item:hover { border-color:rgba(200,220,255,0.4); box-shadow:0 0 12px rgba(200,220,255,0.1); }
+        .diamond-item.wide { grid-column:span 2; }
+        .diamond-label { font-size:10px; color:rgba(255,255,255,0.4); margin-bottom:4px; text-transform:uppercase; letter-spacing:0.5px; font-weight:800; display:block; }
+        .diamond-value { font-family:'Righteous',cursive; font-size:18px; color:#e8f0ff; }
+        .price-diamond { font-family:'Righteous',cursive; font-size:32px; background:linear-gradient(135deg,#e8f0ff,#aaccff,#ffffff); -webkit-background-clip:text; -webkit-text-fill-color:transparent; filter:drop-shadow(0 0 12px rgba(200,220,255,0.4)); }
+        .btn-diamond { width:100%; padding:14px; background:linear-gradient(135deg,rgba(200,220,255,0.1),rgba(170,204,255,0.08)); border:1.5px solid rgba(200,220,255,0.4); border-radius:40px; color:#e8f0ff; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.25s; display:flex; align-items:center; justify-content:center; gap:8px; box-shadow:0 4px 20px rgba(200,220,255,0.1); }
+        .btn-diamond:hover { background:linear-gradient(135deg,#e8f0ff,#aaccff); color:#06070f; border-color:#e8f0ff; box-shadow:0 6px 30px rgba(200,220,255,0.35); transform:translateY(-2px); }
+
+        /* Shared unli header */
+        .unli-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:16px; flex-wrap:wrap; gap:10px; }
+        .unli-title  { font-family:'Righteous',cursive; font-size:26px; color:#fff; margin:0; }
+        .unli-ded    { font-size:11px; color:#aaccff; background:rgba(170,204,255,0.08); padding:5px 12px; border-radius:30px; border:1px solid rgba(170,204,255,0.2); display:inline-flex; align-items:center; gap:5px; font-weight:800; }
+        .unli-price-section { text-align:center; margin:16px 0; }
+        .unli-price-label   { font-size:11px; color:rgba(255,255,255,0.4); text-transform:uppercase; letter-spacing:0.5px; margin-bottom:4px; display:block; font-weight:800; }
+
+
+        /* ===== SIDEBAR AUTH ===== */
+        .sidebar-auth-btn {
+            display: flex; align-items: center; gap: 10px;
+            padding: 11px 16px; border-radius: 10px; font-weight: 800;
+            font-size: 14px; cursor: pointer; transition: 0.2s;
+            text-decoration: none; margin: 2px 0;
+        }
+        .sidebar-auth-btn.login    { color: #00e5ff; }
+        .sidebar-auth-btn.register { color: #00ff88; }
+        .sidebar-auth-btn.logout   { color: #ff6688; }
+        .sidebar-auth-btn:hover    { background: rgba(255,255,255,0.06); }
+        .sidebar-auth-btn i        { width: 18px; text-align: center; }
+        @media (max-width: 500px) {
+            .rainbow-text { font-size: 30px; }
+            .cards-container { grid-template-columns: 1fr; }
+            .price-vip { font-size: 26px; }
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-left"><button id="menu-toggle">☰</button></div>
+        <div class="nav-right">
+            <a href="/isisaldo" class="coins-wrapper">🪙 <span id="coinCount">0</span> +</a>
+            <div class="user-menu">
+                <div class="user-avatar"><span class="nav-initial">?</span></div>
+                <div class="menu-trigger" id="menuTrigger"><i class="fas fa-ellipsis-v"></i></div>
+                <div class="dropdown-menu" id="dropdownMenu"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <!-- Header: tampil username kalau login, logo kalau belum -->
+        <div class="sidebar-header" id="sidebarHeader">
+            <span class="user-name-text" id="sidebarUsername">DzzXNzz</span>
+            <div class="sidebar-pfp">
+                <img id="sidebarAvatar" src="/image/image.jpg" alt="PFP"
+                    onerror="this.src='https://ui-avatars.com/api/?name=?&background=06070f&color=00e5ff&bold=true'">
+            </div>
+        </div>
+        <!-- Menu utama -->
+        <ul class="sidebar-menu">
+            <li><a href="/product/panelptero"><i class="fas fa-server"></i> Panel Pterodactyl</a></li>
+            <li><a href="/riwayat-order"><i class="fas fa-list-alt"></i> Riwayat Order</a></li>
+        </ul>
+        <div class="sidebar-divider"></div>
+        <!-- Auth menu — dinamis berdasarkan status login -->
+        <ul class="sidebar-menu" id="sidebarAuthMenu">
+            <!-- diisi JS -->
+        </ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="rainbow-text">Panel Pterodactyl</h1>
+            <p class="header-subtitle">VPS legal siap pakai — performa tinggi, harga terjangkau 🚀</p>
+        </div>
+
+        <!-- TABS -->
+        <div class="duration-wrapper">
+            <!-- Baris 0: UJI COBA -->
+            <div class="ujicoba-row">
+                <button class="ujicoba-tab" data-tab="ujicoba">🧪&nbsp; UJI COBA &nbsp;🧪</button>
+            </div>
+            <!-- Baris 1: 10 / 20 / 30 Hari -->
+            <div class="duration-group">
+                <button class="duration-btn" data-tab="10">10 Hari</button>
+                <button class="duration-btn active" data-tab="20">20 Hari</button>
+                <button class="duration-btn" data-tab="30">30 Hari</button>
+            </div>
+            <div class="unlimited-row">
+                <button class="unlimited-tab" data-tab="unlimited">♾&nbsp; UNLIMITED &nbsp;♾</button>
+            </div>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- UJI COBA -->
+        <div id="tabUjicoba" class="cards-container hidden">
+            <div class="ujicoba-card" data-panel="1">
+                <div class="ujicoba-badge"><i class="fas fa-flask"></i> UJI COBA</div>
+                <div class="card-header">
+                    <span class="card-badge" style="color:#00ff88;filter:drop-shadow(0 0 8px rgba(0,255,136,0.5))">1 GB</span>
+                    <span class="card-tier" style="color:#00ff88;border-color:rgba(0,255,136,0.3);background:rgba(0,255,136,0.08)">FREE TRIAL</span>
+                </div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">10%</span></div>
+                    <div class="spec-item"><span class="spec-label">MEMORI</span><span class="spec-value">100 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">100 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DURASI</span><span class="spec-value" style="color:#00ff88">5 Hari</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="price-wrap">
+                    <span class="price-tag" style="background:linear-gradient(135deg,#00ff88,#00e5ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent">Rp 1.000</span>
+                    <span class="price-sub">/5 hari · hanya 1 GB</span>
+                </div>
+                <button class="btn-ujicoba" data-harga="1000"><i class="fas fa-flask"></i> Coba Sekarang</button>
+            </div>
+        </div>
+
+        <!-- 10 HARI -->
+        <div id="tab10" class="cards-container hidden">
+            <div class="low-card" data-panel="3">
+                <div class="low-stock-badge"><i class="fas fa-circle"></i> STOK TERBATAS</div>
+                <div class="card-header"><span class="card-badge">3 GB</span><span class="card-tier">PROMO</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">100%</span></div>
+                    <div class="spec-item"><span class="spec-label">MEMORI</span><span class="spec-value">3.027 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">3.027 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="low-stock-bar">
+                    <div class="low-stock-label"><span>Ketersediaan</span><span>Sisa sedikit!</span></div>
+                    <div class="low-stock-track"><div class="low-stock-fill" style="width:18%"></div></div>
+                </div>
+                <div class="low-price-wrap">
+                    <span class="low-price-old">Rp 4.000</span>
+                    <span class="low-price-new">Rp 3.000 <span>/10 hari</span></span>
+                </div>
+                <button class="btn-pesan-low" data-harga="3000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+            <div class="low-card" data-panel="5">
+                <div class="low-stock-badge"><i class="fas fa-circle"></i> STOK TERBATAS</div>
+                <div class="card-header"><span class="card-badge">5 GB</span><span class="card-tier">PROMO</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">250%</span></div>
+                    <div class="spec-item"><span class="spec-label">MEMORI</span><span class="spec-value">5.021 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">5.021 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="low-stock-bar">
+                    <div class="low-stock-label"><span>Ketersediaan</span><span>Sisa sedikit!</span></div>
+                    <div class="low-stock-track"><div class="low-stock-fill" style="width:22%"></div></div>
+                </div>
+                <div class="low-price-wrap">
+                    <span class="low-price-old">Rp 6.000</span>
+                    <span class="low-price-new">Rp 5.000 <span>/10 hari</span></span>
+                </div>
+                <button class="btn-pesan-low" data-harga="5000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+            <div class="low-card" data-panel="6">
+                <div class="low-stock-badge"><i class="fas fa-circle"></i> STOK TERBATAS</div>
+                <div class="card-header"><span class="card-badge">6 GB</span><span class="card-tier">PROMO</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">300%</span></div>
+                    <div class="spec-item"><span class="spec-label">MEMORI</span><span class="spec-value">6.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">6.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="low-stock-bar">
+                    <div class="low-stock-label"><span>Ketersediaan</span><span>Sisa sedikit!</span></div>
+                    <div class="low-stock-track"><div class="low-stock-fill" style="width:15%"></div></div>
+                </div>
+                <div class="low-price-wrap">
+                    <span class="low-price-old">Rp 8.000</span>
+                    <span class="low-price-new">Rp 6.000 <span>/10 hari</span></span>
+                </div>
+                <button class="btn-pesan-low" data-harga="6000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+            <div class="low-card" data-panel="7">
+                <div class="low-stock-badge"><i class="fas fa-circle"></i> STOK TERBATAS</div>
+                <div class="card-header"><span class="card-badge">7 GB</span><span class="card-tier">PROMO</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">350%</span></div>
+                    <div class="spec-item"><span class="spec-label">MEMORI</span><span class="spec-value">7.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">7.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="low-stock-bar">
+                    <div class="low-stock-label"><span>Ketersediaan</span><span>Sisa sedikit!</span></div>
+                    <div class="low-stock-track"><div class="low-stock-fill" style="width:10%"></div></div>
+                </div>
+                <div class="low-price-wrap">
+                    <span class="low-price-old">Rp 11.000</span>
+                    <span class="low-price-new">Rp 7.000 <span>/10 hari</span></span>
+                </div>
+                <button class="btn-pesan-low" data-harga="7000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+        </div>
+
+        <!-- 20 HARI -->
+        <div id="tab20" class="cards-container">
+            <div class="panel-card" data-panel="3">
+                <div class="card-popular-badge"><i class="fas fa-star"></i> PALING LARIS</div>
+                <div class="card-header"><span class="card-badge">3 GB</span><span class="card-tier">LOW</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">100%</span></div>
+                    <div class="spec-item ram-row"><span class="spec-label">MEMORI</span><span class="spec-value">3.027 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">3.027 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="price-wrap"><span class="price-tag">Rp 4.000</span><span class="price-sub">/20 hari</span></div>
+                <button class="btn-pesan" data-harga="4000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+            <div class="panel-card" data-panel="5">
+                <div class="card-popular-badge"><i class="fas fa-fire"></i> POPULER</div>
+                <div class="card-header"><span class="card-badge">5 GB</span><span class="card-tier">LOW</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">250%</span></div>
+                    <div class="spec-item ram-row"><span class="spec-label">MEMORI</span><span class="spec-value">5.021 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">5.021 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="price-wrap"><span class="price-tag">Rp 6.000</span><span class="price-sub">/20 hari</span></div>
+                <button class="btn-pesan" data-harga="6000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+            <div class="panel-card" data-panel="6">
+                <div class="card-popular-badge hot"><i class="fas fa-crown"></i> TERBAIK</div>
+                <div class="card-header"><span class="card-badge">6 GB</span><span class="card-tier tier-mid">MID</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">300%</span></div>
+                    <div class="spec-item ram-row tier-mid"><span class="spec-label">MEMORI</span><span class="spec-value">6.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">6.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="price-wrap"><span class="price-tag mid-price">Rp 8.000</span><span class="price-sub">/20 hari</span></div>
+                <button class="btn-pesan btn-mid" data-harga="8000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+            <div class="panel-card" data-panel="7">
+                <div class="card-popular-badge best"><i class="fas fa-gem"></i> PREMIUM</div>
+                <div class="card-header"><span class="card-badge">7 GB</span><span class="card-tier tier-high">HIGH</span></div>
+                <div class="spec-list">
+                    <div class="spec-item"><span class="spec-label">CPU</span><span class="spec-value">350%</span></div>
+                    <div class="spec-item ram-row tier-high"><span class="spec-label">MEMORI</span><span class="spec-value">7.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">DISK</span><span class="spec-value">7.065 MB</span></div>
+                    <div class="spec-item"><span class="spec-label">SPEK VPS</span><span class="spec-value">R18C6</span></div>
+                </div>
+                <div class="price-wrap"><span class="price-tag high-price">Rp 11.000</span><span class="price-sub">/20 hari</span></div>
+                <button class="btn-pesan btn-high" data-harga="11000"><i class="fas fa-bolt"></i> Pesan Sekarang</button>
+            </div>
+        </div>
+
+        <!-- 30 HARI -->
+        <div id="tab30" class="cards-container hidden">
+            <div class="vip-card" data-panel="3">
+                <div class="badge-vip"><i class="fas fa-crown"></i> VIP EXCLUSIVE</div>
+                <div class="card-header">
+                    <h2 class="card-title">Private 3GB</h2>
+                    <span class="dedicated-badge"><i class="fas fa-check-circle"></i> DEDICATED</span>
+                </div>
+                <div class="spec-grid">
+                    <div class="grid-item"><span class="grid-label">CPU</span><span class="grid-value">110%</span></div>
+                    <div class="grid-item"><span class="grid-label">RAM</span><span class="grid-value">3.127 MB</span></div>
+                    <div class="grid-item disk-full"><span class="grid-label">DISK</span><span class="grid-value">3.127 MB</span></div>
+                </div>
+                <div class="price-section">
+                    <span class="price-label">Harga Spesial</span>
+                    <div class="price-vip"><span class="currency">Rp</span><span class="amount">5.000</span></div>
+                </div>
+                <button class="btn-order" data-harga="5000"><i class="fas fa-crown"></i> Order Premium</button>
+            </div>
+            <div class="vip-card" data-panel="5">
+                <div class="badge-vip"><i class="fas fa-crown"></i> VIP EXCLUSIVE</div>
+                <div class="card-header">
+                    <h2 class="card-title">Private 5GB</h2>
+                    <span class="dedicated-badge"><i class="fas fa-check-circle"></i> DEDICATED</span>
+                </div>
+                <div class="spec-grid">
+                    <div class="grid-item"><span class="grid-label">CPU</span><span class="grid-value">260%</span></div>
+                    <div class="grid-item"><span class="grid-label">RAM</span><span class="grid-value">5.121 MB</span></div>
+                    <div class="grid-item disk-full"><span class="grid-label">DISK</span><span class="grid-value">5.121 MB</span></div>
+                </div>
+                <div class="price-section">
+                    <span class="price-label">Harga Spesial</span>
+                    <div class="price-vip"><span class="currency">Rp</span><span class="amount">7.000</span></div>
+                </div>
+                <button class="btn-order" data-harga="7000"><i class="fas fa-crown"></i> Order Premium</button>
+            </div>
+            <div class="vip-card" data-panel="6">
+                <div class="badge-vip"><i class="fas fa-crown"></i> VIP EXCLUSIVE</div>
+                <div class="card-header">
+                    <h2 class="card-title">Private 6GB</h2>
+                    <span class="dedicated-badge"><i class="fas fa-check-circle"></i> DEDICATED</span>
+                </div>
+                <div class="spec-grid">
+                    <div class="grid-item"><span class="grid-label">CPU</span><span class="grid-value">310%</span></div>
+                    <div class="grid-item"><span class="grid-label">RAM</span><span class="grid-value">6.165 MB</span></div>
+                    <div class="grid-item disk-full"><span class="grid-label">DISK</span><span class="grid-value">6.165 MB</span></div>
+                </div>
+                <div class="price-section">
+                    <span class="price-label">Harga Spesial</span>
+                    <div class="price-vip"><span class="currency">Rp</span><span class="amount">9.000</span></div>
+                </div>
+                <button class="btn-order" data-harga="9000"><i class="fas fa-crown"></i> Order Premium</button>
+            </div>
+            <div class="vip-card" data-panel="7">
+                <div class="badge-vip"><i class="fas fa-crown"></i> VIP EXCLUSIVE</div>
+                <div class="card-header">
+                    <h2 class="card-title">Private 7GB</h2>
+                    <span class="dedicated-badge"><i class="fas fa-check-circle"></i> DEDICATED</span>
+                </div>
+                <div class="spec-grid">
+                    <div class="grid-item"><span class="grid-label">CPU</span><span class="grid-value">360%</span></div>
+                    <div class="grid-item"><span class="grid-label">RAM</span><span class="grid-value">7.165 MB</span></div>
+                    <div class="grid-item disk-full"><span class="grid-label">DISK</span><span class="grid-value">7.165 MB</span></div>
+                </div>
+                <div class="price-section">
+                    <span class="price-label">Harga Spesial</span>
+                    <div class="price-vip"><span class="currency">Rp</span><span class="amount">12.000</span></div>
+                </div>
+                <button class="btn-order" data-harga="12000"><i class="fas fa-crown"></i> Order Premium</button>
+            </div>
+        </div>
+
+        <!-- UNLIMITED -->
+        <div id="tabUnlimited" class="unlimited-container">
+
+            <!-- Card 1: Bronze/Silver — 10 Hari -->
+            <div class="unli-card unli-bronze" data-durasi="10">
+                <div class="badge-bronze"><i class="fas fa-medal"></i> UNLIMITED STARTER</div>
+                <div class="unli-header">
+                    <h2 class="unli-title">Unlimited 10 Hari</h2>
+                    <span class="unli-ded"><i class="fas fa-infinity"></i> FULL ACCESS</span>
+                </div>
+                <div class="bronze-grid">
+                    <div class="bronze-item"><span class="bronze-label">CPU</span><span class="bronze-value">∞ Unlimited</span></div>
+                    <div class="bronze-item"><span class="bronze-label">RAM</span><span class="bronze-value">∞ Unlimited</span></div>
+                    <div class="bronze-item wide"><span class="bronze-label">DISK</span><span class="bronze-value">∞ Unlimited</span></div>
+                    <div class="bronze-item wide"><span class="bronze-label">SPEK VPS</span><span class="bronze-value">R18C6</span></div>
+                </div>
+                <div class="unli-price-section">
+                    <span class="unli-price-label">Harga 10 Hari</span>
+                    <div class="price-bronze"><span class="currency">Rp</span>15.000</div>
+                </div>
+                <button class="btn-bronze" data-harga="15000"><i class="fas fa-medal"></i> Order Starter</button>
+            </div>
+
+            <!-- Card 2: Gold — 20 Hari -->
+            <div class="unli-card unli-gold" data-durasi="20">
+                <div class="badge-gold"><i class="fas fa-crown"></i> UNLIMITED GOLD</div>
+                <div class="unli-header">
+                    <h2 class="unli-title">Unlimited 20 Hari</h2>
+                    <span class="unli-ded"><i class="fas fa-infinity"></i> FULL ACCESS</span>
+                </div>
+                <div class="gold-grid">
+                    <div class="gold-item"><span class="gold-label">CPU</span><span class="gold-value">∞ Unlimited</span></div>
+                    <div class="gold-item"><span class="gold-label">RAM</span><span class="gold-value">∞ Unlimited</span></div>
+                    <div class="gold-item wide"><span class="gold-label">DISK</span><span class="gold-value">∞ Unlimited</span></div>
+                    <div class="gold-item wide"><span class="gold-label">SPEK VPS</span><span class="gold-value">R18C6</span></div>
+                </div>
+                <div class="unli-price-section">
+                    <span class="unli-price-label">Harga 20 Hari</span>
+                    <div class="price-gold"><span class="currency">Rp</span>20.000</div>
+                </div>
+                <button class="btn-gold" data-harga="20000"><i class="fas fa-crown"></i> Order Gold</button>
+            </div>
+
+            <!-- Card 3: Diamond — 30 Hari -->
+            <div class="unli-card unli-diamond" data-durasi="30">
+                <div class="badge-diamond"><i class="fas fa-gem"></i> UNLIMITED DIAMOND</div>
+                <div class="unli-header">
+                    <h2 class="unli-title">Unlimited 30 Hari</h2>
+                    <span class="unli-ded"><i class="fas fa-infinity"></i> FULL ACCESS</span>
+                </div>
+                <div class="diamond-grid">
+                    <div class="diamond-item"><span class="diamond-label">CPU</span><span class="diamond-value">∞ Unlimited</span></div>
+                    <div class="diamond-item"><span class="diamond-label">RAM</span><span class="diamond-value">∞ Unlimited</span></div>
+                    <div class="diamond-item wide"><span class="diamond-label">DISK</span><span class="diamond-value">∞ Unlimited</span></div>
+                    <div class="diamond-item wide"><span class="diamond-label">SPEK VPS</span><span class="diamond-value">R18C6</span></div>
+                </div>
+                <div class="unli-price-section">
+                    <span class="unli-price-label">Harga 30 Hari</span>
+                    <div class="price-diamond"><span class="currency" style="-webkit-text-fill-color:#aaccff">Rp</span>30.000</div>
+                </div>
+                <button class="btn-diamond" data-harga="30000"><i class="fas fa-gem"></i> Order Diamond</button>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-container">
+            <div>
+                <div class="footer-logo">DzzXNzz</div>
+                <p class="footer-desc">Provider hosting generasi baru yang fokus pada performa, keamanan, dan kemudahan penggunaan.</p>
+                <div class="social-icons">
+                    <a href="https://wa.me/6287713472756" target="_blank" class="social-icon wa"><i class="fab fa-whatsapp"></i></a>
+                    <a href="https://t.me/DzzXNzz" target="_blank" class="social-icon tg"><i class="fab fa-telegram-plane"></i></a>
+                    <a href="/cdn-cgi/l/email-protection#d0a3a5a0a0bfa2a490b4aaaaa8beaaaafebda9feb9b4" class="social-icon email"><i class="fas fa-envelope"></i></a>
+                </div>
+            </div>
+            <div><h4 class="footer-title">Layanan</h4><ul class="footer-links"><li><a href="#">Cloud Hosting</a></li><li><a href="#">VPS Servers</a></li><li><a href="#">Bot Jaga</a></li></ul></div>
+            <div><h4 class="footer-title">Legal</h4><ul class="footer-links"><li><a href="#">Terms of Service</a></li><li><a href="#">Privacy Policy</a></li></ul></div>
+            <div><h4 class="footer-title">Kontak</h4><ul class="footer-links"><li><a href="/contact">WhatsApp</a></li><li><a href="/contact">Telegram</a></li></ul></div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2026 DzzXNzz Host. All rights reserved.</span>
+            <span class="status-badge"><i class="fas fa-circle"></i> ALL SYSTEMS OPERATIONAL</span>
+        </div>
+    </footer>
+    <script src="/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // ===== SEMBUNYIKAN SEMUA TAB DULU =====
+        document.getElementById('tabUjicoba').style.display = 'none';
+        document.getElementById('tab10').style.display  = 'none';
+        document.getElementById('tab20').style.display  = 'none';
+        document.getElementById('tab30').style.display  = 'none';
+        document.getElementById('tabUnlimited').style.display = 'none';
+
+        // ===== TAMPIL 20 HARI DEFAULT =====
+        document.getElementById('tab20').style.display = 'grid';
+        document.querySelector('[data-tab="20"]').classList.add('active');
+
+        // ===== TAB UJI COBA =====
+        document.querySelector('.ujicoba-tab').onclick = function() {
+            document.getElementById('tabUjicoba').style.display = 'grid';
+            document.getElementById('tab10').style.display  = 'none';
+            document.getElementById('tab20').style.display  = 'none';
+            document.getElementById('tab30').style.display  = 'none';
+            document.getElementById('tabUnlimited').style.display = 'none';
+            document.querySelectorAll('.duration-btn').forEach(function(b){ b.classList.remove('active'); });
+            document.querySelector('.unlimited-tab').classList.remove('active');
+            document.querySelector('.ujicoba-tab').classList.add('active');
+        };
+
+        // ===== TAB 10 HARI =====
+        document.querySelector('[data-tab="10"]').onclick = function() {
+            document.getElementById('tabUjicoba').style.display = 'none';
+            document.querySelector('.ujicoba-tab').classList.remove('active');
+            document.getElementById('tab10').style.display  = 'grid';
+            document.getElementById('tab20').style.display  = 'none';
+            document.getElementById('tab30').style.display  = 'none';
+            document.getElementById('tabUnlimited').style.display = 'none';
+            document.querySelector('[data-tab="10"]').classList.add('active');
+            document.querySelector('[data-tab="20"]').classList.remove('active');
+            document.querySelector('[data-tab="30"]').classList.remove('active');
+            document.querySelector('.unlimited-tab').classList.remove('active');
+        };
+
+        // ===== TAB 20 HARI =====
+        document.querySelector('[data-tab="20"]').onclick = function() {
+            document.getElementById('tab10').style.display  = 'none';
+            document.getElementById('tabUjicoba').style.display = 'none';
+            document.querySelector('.ujicoba-tab').classList.remove('active');
+            document.getElementById('tab20').style.display  = 'grid';
+            document.getElementById('tab30').style.display  = 'none';
+            document.getElementById('tabUnlimited').style.display = 'none';
+            document.querySelector('[data-tab="10"]').classList.remove('active');
+            document.querySelector('[data-tab="20"]').classList.add('active');
+            document.querySelector('[data-tab="30"]').classList.remove('active');
+            document.querySelector('.unlimited-tab').classList.remove('active');
+        };
+
+        // ===== TAB 30 HARI =====
+        document.querySelector('[data-tab="30"]').onclick = function() {
+            document.getElementById('tab10').style.display  = 'none';
+            document.getElementById('tab20').style.display  = 'none';
+            document.getElementById('tabUjicoba').style.display = 'none';
+            document.querySelector('.ujicoba-tab').classList.remove('active');
+            document.getElementById('tab30').style.display  = 'grid';
+            document.getElementById('tabUnlimited').style.display = 'none';
+            document.querySelector('[data-tab="10"]').classList.remove('active');
+            document.querySelector('[data-tab="20"]').classList.remove('active');
+            document.querySelector('[data-tab="30"]').classList.add('active');
+            document.querySelector('.unlimited-tab').classList.remove('active');
+        };
+
+        // ===== TAB UNLIMITED =====
+        document.querySelector('.unlimited-tab').onclick = function() {
+            document.getElementById('tab10').style.display  = 'none';
+            document.getElementById('tab20').style.display  = 'none';
+            document.getElementById('tab30').style.display  = 'none';
+            document.getElementById('tabUnlimited').style.display = 'flex';
+            document.querySelector('[data-tab="10"]').classList.remove('active');
+            document.querySelector('[data-tab="20"]').classList.remove('active');
+            document.querySelector('[data-tab="30"]').classList.remove('active');
+            document.querySelector('.unlimited-tab').classList.add('active');
+        };
+
+        // ===== TOMBOL PESAN 10 HARI =====
+        document.querySelectorAll('#tab10 .btn-pesan-low').forEach(function(btn) {
+            btn.onclick = function() {
+                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
+                window.location.href = '/pay?panel=' + panel + '&durasi=10&amount=' + btn.getAttribute('data-harga');
+            };
+        });
+
+        // ===== TOMBOL PESAN 20 HARI =====
+        document.querySelectorAll('#tab20 .btn-pesan').forEach(function(btn) {
+            btn.onclick = function() {
+                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
+                window.location.href = '/pay?panel=' + panel + '&durasi=20&amount=' + btn.getAttribute('data-harga');
+            };
+        });
+
+        // ===== TOMBOL PESAN 30 HARI =====
+        document.querySelectorAll('#tab30 .btn-order').forEach(function(btn) {
+            btn.onclick = function() {
+                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
+                window.location.href = '/pay?panel=' + panel + '&durasi=30&amount=' + btn.getAttribute('data-harga');
+            };
+        });
+
+        // ===== TOMBOL PESAN UNLIMITED =====
+        document.querySelectorAll('#tabUnlimited button[data-harga]').forEach(function(btn) {
+            btn.onclick = function() {
+                var durasi = btn.closest('[data-durasi]').getAttribute('data-durasi');
+                window.location.href = '/pay?panel=unlimited&durasi=' + durasi + '&amount=' + btn.getAttribute('data-harga');
+            };
+        });
+
+        // Uji coba pesan
+        document.querySelectorAll('#tabUjicoba .btn-ujicoba').forEach(function(btn) {
+            btn.onclick = function() {
+                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
+                window.location.href = '/pay?panel='+panel+'&durasi=5&amount='+btn.getAttribute('data-harga');
+            };
+        });
+    
+        // ===== UPDATE SIDEBAR AUTH =====
+        (function() {
+            var menu    = document.getElementById('sidebarAuthMenu');
+            var uname   = document.getElementById('sidebarUsername');
+            var avatar  = document.getElementById('sidebarAvatar');
+            var isLogin = typeof Auth !== 'undefined' && Auth.isLoggedIn();
+
+            if (isLogin) {
+                // Tampil username
+                var username = localStorage.getItem('nyzz_username') || 'User';
+                if (uname) uname.textContent = username;
+                if (avatar) avatar.src = 'https://ui-avatars.com/api/?name='+encodeURIComponent(username)+'&background=06070f&color=00e5ff&bold=true';
+
+                // Menu: Logout saja
+                if (menu) menu.innerHTML =
+                    '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
+                    '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
+            } else {
+                // Menu: Login + Register
+                if (uname) uname.textContent = 'Tamu';
+                if (avatar) avatar.src = 'https://ui-avatars.com/api/?name=?&background=06070f&color=ffffff&bold=true';
+                if (menu) menu.innerHTML =
+                    '<li><a href="/login" class="sidebar-auth-btn login">'+
+                    '<i class="fas fa-sign-in-alt"></i> Login</a></li>'+
+                    '<li><a href="/register" class="sidebar-auth-btn register">'+
+                    '<i class="fas fa-user-plus"></i> Register</a></li>';
+            }
+        })();
+
+        function doLogout() {
+            if (typeof Auth !== 'undefined') Auth.logout();
+            localStorage.removeItem('nyzz_username');
+            localStorage.removeItem('nyzz_session');
+            window.location.reload();
+        }
+        window.doLogout = doLogout;
+
+    });
+    </script>
+</body>
+</html>

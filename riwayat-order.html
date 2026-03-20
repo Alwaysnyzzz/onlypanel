@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+    <title>Riwayat Order - DzzXNzz</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        @keyframes fadeInUp { from{opacity:0;transform:translateY(16px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes spin      { to{transform:rotate(360deg)} }
+
+        .main-content { padding: 88px 20px 50px; max-width: 600px; margin: 0 auto; }
+        .page-header  { text-align: center; margin-bottom: 28px; animation: fadeInUp 0.5s ease; }
+        .page-title   {
+            font-family: 'Righteous', cursive; font-size: 32px;
+            background: linear-gradient(135deg, #00e5ff, #00ff88);
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+        .page-sub { font-size: 13px; color: rgba(255,255,255,0.4); font-weight: 700; }
+
+        /* ===== ORDER CARD ===== */
+        .order-list   { display: flex; flex-direction: column; gap: 12px; }
+        .order-card   {
+            border-radius: 16px; overflow: hidden;
+            border: 1px solid rgba(0,229,255,0.15);
+            background: rgba(13,15,25,0.9);
+            animation: fadeInUp 0.5s ease both;
+            transition: 0.2s;
+        }
+        .order-card:hover { border-color: rgba(0,229,255,0.3); }
+
+        /* Header accordion */
+        .order-head {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 16px 18px; cursor: pointer; user-select: none;
+            position: relative;
+        }
+        .order-head-left  { display: flex; flex-direction: column; gap: 4px; }
+        .order-name       { font-size: 15px; font-weight: 900; color: #fff; }
+        .order-date       { font-size: 11px; color: rgba(255,255,255,0.4); font-weight: 700; }
+        .order-head-right { display: flex; align-items: center; gap: 10px; }
+
+        /* Status badge kecil di kanan */
+        .order-status-badge {
+            font-size: 10px; font-weight: 900; padding: 3px 10px;
+            border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .badge-active   { background: rgba(0,255,136,0.12); border: 1px solid rgba(0,255,136,0.3); color: #00ff88; }
+        .badge-expired  { background: rgba(255,0,85,0.12); border: 1px solid rgba(255,0,85,0.3); color: #ff0055; }
+        .badge-suspend  { background: rgba(255,224,0,0.1); border: 1px solid rgba(255,224,0,0.3); color: #ffe000; }
+        .badge-pending  { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.5); }
+
+        .order-chevron { color: rgba(255,255,255,0.3); font-size: 13px; transition: 0.3s; }
+        .order-card.open .order-chevron { transform: rotate(180deg); }
+
+        /* Overlay expired/suspend */
+        .order-card.expired .order-head,
+        .order-card.suspend .order-head {
+            opacity: 0.5;
+        }
+        .expired-overlay {
+            display: none; position: absolute;
+            left: 50%; transform: translateX(-50%);
+            top: 50%; margin-top: -14px;
+        }
+        .order-card.expired .expired-overlay,
+        .order-card.suspend .expired-overlay { display: block; }
+        .expired-pill {
+            background: rgba(255,0,85,0.85); color: #fff;
+            font-size: 11px; font-weight: 900; padding: 5px 16px;
+            border-radius: 30px; letter-spacing: 0.5px; cursor: pointer;
+            border: none; white-space: nowrap;
+            box-shadow: 0 2px 12px rgba(255,0,85,0.4);
+        }
+        .order-card.suspend .expired-pill {
+            background: rgba(255,224,0,0.85);
+            color: #06070f;
+            box-shadow: 0 2px 12px rgba(255,224,0,0.4);
+        }
+
+        /* Accordion body */
+        .order-body {
+            display: none; padding: 0 18px 16px;
+            border-top: 1px solid rgba(255,255,255,0.06);
+        }
+        .order-card.open .order-body { display: block; }
+
+        .spek-grid { display: grid; grid-template-columns: repeat(2,1fr); gap: 8px; margin: 12px 0; }
+        .spek-box  {
+            background: rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.07);
+            border-radius: 10px; padding: 10px 8px; text-align: center;
+        }
+        .spek-box.wide { grid-column: span 2; }
+        .spek-lbl { font-size: 9px; color: rgba(255,255,255,0.35); font-weight: 800; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 3px; }
+        .spek-val { font-family: 'Righteous', cursive; font-size: 15px; color: #fff; }
+        .spek-val.cyan   { color: #00e5ff; }
+        .spek-val.green  { color: #00ff88; }
+        .spek-val.red    { color: #ff0055; }
+        .spek-val.yellow { color: #ffe000; }
+
+        .btn-detail {
+            width: 100%; padding: 12px;
+            background: linear-gradient(135deg, rgba(0,229,255,0.15), rgba(0,255,136,0.08));
+            border: 1.5px solid rgba(0,229,255,0.4); border-radius: 40px; color: #00e5ff;
+            font-family: 'Nunito',sans-serif; font-size: 14px; font-weight: 900;
+            cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px;
+            transition: 0.2s; text-decoration: none; margin-top: 4px;
+        }
+        .btn-detail:hover { background: linear-gradient(135deg,#00e5ff,#00ff88); color: #06070f; transform: translateY(-2px); }
+
+        /* Empty state */
+        .empty-state { text-align: center; padding: 60px 20px; }
+        .empty-icon  { font-size: 48px; color: rgba(255,255,255,0.1); margin-bottom: 16px; }
+        .empty-title { font-size: 16px; font-weight: 900; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+        .empty-sub   { font-size: 13px; color: rgba(255,255,255,0.25); font-weight: 700; }
+
+        /* Loading */
+        .loader-wrap { display: flex; justify-content: center; padding: 60px 0; }
+        .loader-ring { width: 40px; height: 40px; border: 3px solid rgba(0,229,255,0.2); border-top-color: #00e5ff; border-radius: 50%; animation: spin 0.8s linear infinite; }
+
+        /* Not logged in */
+        .auth-prompt {
+            text-align: center; padding: 60px 20px;
+            background: rgba(13,15,25,0.9); border-radius: 20px;
+            border: 1px solid rgba(0,229,255,0.15);
+        }
+        .auth-prompt i { font-size: 40px; color: rgba(0,229,255,0.3); margin-bottom: 16px; display: block; }
+        .auth-prompt h3 { font-size: 18px; color: #fff; margin-bottom: 8px; }
+        .auth-prompt p  { font-size: 13px; color: rgba(255,255,255,0.4); font-weight:700; margin-bottom: 20px; }
+        .auth-btns { display: flex; gap: 10px; justify-content: center; }
+        .btn-login    { padding: 11px 24px; background: linear-gradient(135deg,#00e5ff,#00ff88); border: none; border-radius: 40px; color: #06070f; font-family:'Nunito',sans-serif; font-weight:900; font-size:14px; cursor:pointer; text-decoration:none; }
+        .btn-register { padding: 11px 24px; background: transparent; border: 1.5px solid rgba(0,229,255,0.4); border-radius: 40px; color: #00e5ff; font-family:'Nunito',sans-serif; font-weight:900; font-size:14px; cursor:pointer; text-decoration:none; }
+
+        /* Sidebar auth */
+        .sidebar-auth-btn { display:flex; align-items:center; gap:10px; padding:11px 16px; border-radius:10px; font-weight:800; font-size:14px; cursor:pointer; transition:0.2s; text-decoration:none; margin:2px 0; }
+        .sidebar-auth-btn.login    { color:#00e5ff; }
+        .sidebar-auth-btn.register { color:#00ff88; }
+        .sidebar-auth-btn.logout   { color:#ff6688; }
+        .sidebar-auth-btn:hover    { background:rgba(255,255,255,0.06); }
+    </style>
+</head>
+<body>
+    <canvas id="canvas"></canvas>
+
+    <nav class="navbar">
+        <div class="nav-left"><button id="menu-toggle">☰</button></div>
+        <div class="nav-right">
+            <div class="user-menu" id="navUserMenu">
+                <div class="user-avatar"><span class="nav-initial" id="navInitial">?</span></div>
+                <div class="menu-trigger" id="menuTrigger"><i class="fas fa-ellipsis-v"></i></div>
+                <div class="dropdown-menu" id="dropdownMenu"></div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <span class="user-name-text" id="sidebarUsername">DzzXNzz</span>
+            <div class="sidebar-pfp">
+                <img id="sidebarAvatar" src="/image/image.jpg" alt="PFP"
+                    onerror="this.src='https://ui-avatars.com/api/?name=?&background=06070f&color=00e5ff&bold=true'">
+            </div>
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="/product/panelptero"><i class="fas fa-server"></i> Panel Pterodactyl</a></li>
+            <li><a href="/riwayat-order" style="color:#00e5ff"><i class="fas fa-list-alt"></i> Riwayat Order</a></li>
+        </ul>
+        <div class="sidebar-divider"></div>
+        <ul class="sidebar-menu" id="sidebarAuthMenu"></ul>
+    </div>
+    <div class="overlay" id="overlay"></div>
+
+    <main class="main-content">
+        <div class="page-header">
+            <h1 class="page-title"><i class="fas fa-list-alt"></i> Riwayat Order</h1>
+            <p class="page-sub">Semua panel yang pernah kamu pesan</p>
+        </div>
+
+        <div id="orderContainer">
+            <div class="loader-wrap"><div class="loader-ring"></div></div>
+        </div>
+    </main>
+
+    <script src="/script.js"></script>
+    <script>
+    document.addEventListener('DOMContentLoaded', function() {
+
+        // ===== SIDEBAR AUTH =====
+        var authMenu   = document.getElementById('sidebarAuthMenu');
+        var sidebarUname = document.getElementById('sidebarUsername');
+        var sidebarAv  = document.getElementById('sidebarAvatar');
+        var navInitial = document.getElementById('navInitial');
+        var isLogin    = typeof Auth !== 'undefined' && Auth.isLoggedIn();
+
+        if (isLogin) {
+            var uname = localStorage.getItem('nyzz_username') || 'User';
+            if (sidebarUname) sidebarUname.textContent = uname;
+            if (navInitial)   navInitial.textContent   = uname.charAt(0).toUpperCase();
+            if (sidebarAv)    sidebarAv.src = 'https://ui-avatars.com/api/?name='+encodeURIComponent(uname)+'&background=06070f&color=00e5ff&bold=true';
+            if (authMenu)     authMenu.innerHTML =
+                '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
+                '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
+        } else {
+            if (sidebarUname) sidebarUname.textContent = 'Tamu';
+            if (authMenu)     authMenu.innerHTML =
+                '<li><a href="/login" class="sidebar-auth-btn login"><i class="fas fa-sign-in-alt"></i> Login</a></li>'+
+                '<li><a href="/register" class="sidebar-auth-btn register"><i class="fas fa-user-plus"></i> Register</a></li>';
+        }
+
+        // ===== LOAD ORDERS =====
+        var container = document.getElementById('orderContainer');
+
+        if (!isLogin) {
+            container.innerHTML =
+                '<div class="auth-prompt">'+
+                '<i class="fas fa-lock"></i>'+
+                '<h3>Login untuk melihat riwayat</h3>'+
+                '<p>Kamu perlu login terlebih dahulu untuk melihat riwayat order panel.</p>'+
+                '<div class="auth-btns">'+
+                '<a href="/login" class="btn-login">Login</a>'+
+                '<a href="/register" class="btn-register">Register</a>'+
+                '</div></div>';
+            return;
+        }
+
+        loadOrders();
+
+        async function loadOrders() {
+            try {
+                var token = Auth.getToken();
+                var res   = await fetch('/api/panel?action=get-riwayat-order', {
+                    headers: { Authorization: 'Bearer ' + token }
+                });
+                var data  = await res.json();
+
+                if (!res.ok || !Array.isArray(data) || data.length === 0) {
+                    container.innerHTML =
+                        '<div class="empty-state">'+
+                        '<div class="empty-icon"><i class="fas fa-box-open"></i></div>'+
+                        '<div class="empty-title">Belum ada order</div>'+
+                        '<div class="empty-sub">Yuk beli panel pertamamu!</div>'+
+                        '</div>';
+                    return;
+                }
+
+                var html = '<div class="order-list">';
+                data.forEach(function(order, idx) {
+                    var status     = (order.status || 'pending').toLowerCase();
+                    var isExpired  = status === 'expired' || status === 'suspended' || status === 'suspend';
+                    var isSuspend  = status === 'suspended' || status === 'suspend';
+                    var cardClass  = isExpired ? (isSuspend ? 'order-card suspend' : 'order-card expired') : 'order-card';
+
+                    var badgeClass = status === 'active' ? 'badge-active' :
+                                     (isSuspend ? 'badge-suspend' :
+                                     (isExpired ? 'badge-expired' : 'badge-pending'));
+                    var badgeText  = status === 'active' ? 'Aktif' :
+                                     (isSuspend ? 'Suspend' :
+                                     (isExpired ? 'Expired' : 'Pending'));
+                    var pillText   = isSuspend ? 'Suspend — Perpanjang' : 'Expired — Perpanjang';
+
+                    var tglBeli = order.created_at ? new Date(order.created_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '-';
+                    var expired = order.expired_at ? new Date(order.expired_at).toLocaleDateString('id-ID',{day:'numeric',month:'long',year:'numeric'}) : '-';
+
+                    // Spek grid
+                    var ram   = order.ram_gb  ? (order.tier === 'unlimited' ? '∞' : order.ram_gb+' GB') : (order.tier === 'unlimited' ? '∞' : '-');
+                    var cpu   = order.cpu_pct ? (order.tier === 'unlimited' ? '∞' : order.cpu_pct+'%') : '-';
+                    var disk  = order.disk_mb ? (order.tier === 'unlimited' ? '∞' : Math.round(order.disk_mb/1024)+' GB') : '-';
+                    var tier  = (order.tier || '-').toUpperCase();
+                    var harga = order.harga   ? 'Rp '+Number(order.harga).toLocaleString('id-ID') : '-';
+
+                    html +=
+                        '<div class="'+cardClass+'" id="oc'+idx+'">'+
+                            '<div class="order-head" onclick="toggleOrder(\'oc'+idx+'\')">'+
+                                '<div class="order-head-left">'+
+                                    '<div class="order-name"><i class="fas fa-server" style="color:#00e5ff;margin-right:6px;font-size:12px"></i>'+escHtml(order.nama_panel || order.order_id)+'</div>'+
+                                    '<div class="order-date">Beli: '+tglBeli+' &nbsp;·&nbsp; Expired: '+expired+'</div>'+
+                                '</div>'+
+                                '<div class="order-head-right">'+
+                                    '<span class="order-status-badge '+badgeClass+'">'+badgeText+'</span>'+
+                                    '<i class="fas fa-chevron-down order-chevron"></i>'+
+                                '</div>'+
+                                (isExpired ?
+                                    '<div class="expired-overlay">'+
+                                    '<button class="expired-pill" onclick="event.stopPropagation();perpanjang(\''+order.order_id+'\')">'+pillText+'</button>'+
+                                    '</div>' : '')+
+                            '</div>'+
+                            (!isExpired ?
+                                '<div class="order-body">'+
+                                    '<div class="spek-grid">'+
+                                        '<div class="spek-box"><span class="spek-lbl">RAM</span><span class="spek-val cyan">'+ram+'</span></div>'+
+                                        '<div class="spek-box"><span class="spek-lbl">CPU</span><span class="spek-val">'+cpu+'</span></div>'+
+                                        '<div class="spek-box"><span class="spek-lbl">DISK</span><span class="spek-val">'+disk+'</span></div>'+
+                                        '<div class="spek-box"><span class="spek-lbl">TIER</span><span class="spek-val yellow">'+tier+'</span></div>'+
+                                        '<div class="spek-box wide"><span class="spek-lbl">HARGA</span><span class="spek-val green">'+harga+'</span></div>'+
+                                    '</div>'+
+                                    '<a href="/detail/panel?order_id='+order.order_id+'" class="btn-detail">'+
+                                    '<i class="fas fa-external-link-alt"></i> Detail Panel</a>'+
+                                '</div>'
+                            : '')+
+                        '</div>';
+                });
+                html += '</div>';
+                container.innerHTML = html;
+
+            } catch(e) {
+                container.innerHTML =
+                    '<div class="empty-state">'+
+                    '<div class="empty-icon"><i class="fas fa-exclamation-triangle"></i></div>'+
+                    '<div class="empty-title">Gagal memuat</div>'+
+                    '<div class="empty-sub">'+e.message+'</div>'+
+                    '</div>';
+            }
+        }
+
+        function escHtml(str) {
+            return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+        }
+
+        window.toggleOrder = function(id) {
+            var card = document.getElementById(id);
+            if (card) card.classList.toggle('open');
+        };
+
+        window.perpanjang = function(orderId) {
+            window.location.href = '/product/panelptero?perpanjang='+orderId;
+        };
+
+        window.doLogout = function() {
+            if (typeof Auth !== 'undefined') Auth.logout();
+            localStorage.removeItem('nyzz_username');
+            localStorage.removeItem('nyzz_session');
+            window.location.reload();
+        };
+    });
+    </script>
+</body>
+</html>
