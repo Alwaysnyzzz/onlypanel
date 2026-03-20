@@ -158,6 +158,7 @@
         .btn-ujicoba:hover { background: linear-gradient(135deg,#00ff88,#00e5ff); color: #06070f; border-color: #00ff88; box-shadow: 0 8px 35px rgba(0,255,136,0.5); transform: translateY(-3px); }
 
         .cards-container.hidden  { display: none; }
+        .unlimited-container { display: none; flex-direction: column; gap: 20px; width: 100%; }
 
         /* ===== 10 HARI — LOW QUALITY CARDS ===== */
         @keyframes urgentPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
@@ -420,8 +421,8 @@
         </div>
         <!-- Menu utama -->
         <ul class="sidebar-menu">
-            <li><a href="/product/panelptero"><i class="fas fa-server"></i> Panel Pterodactyl</a></li>
-            <li><a href="/riwayat-order"><i class="fas fa-list-alt"></i> Riwayat Order</a></li>
+            <li class="active"><a href="/panel"><i class="fas fa-server"></i> Panel Pterodactyl</a></li>
+            <li><a href="/riwayat"><i class="fas fa-list-alt"></i> Riwayat Order</a></li>
         </ul>
         <div class="sidebar-divider"></div>
         <!-- Auth menu — dinamis berdasarkan status login -->

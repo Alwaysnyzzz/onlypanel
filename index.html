@@ -3,230 +3,159 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-    <title>DzzXNzz Store</title>
+    <title>DzzXNzz Store — Panel Pterodactyl</title>
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="/style.css">
     <style>
-        @keyframes fadeInUp   { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes floatAnim  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-12px)} }
-        @keyframes pulse      { 0%,100%{box-shadow:0 0 30px rgba(0,229,255,0.3)} 50%{box-shadow:0 0 60px rgba(0,229,255,0.6)} }
-        @keyframes rainbowShift { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
-        @keyframes shimmer    { 0%{background-position:0%} 100%{background-position:200%} }
+        @keyframes fadeUp  { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+        @keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+        @keyframes rainbow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+        @keyframes shimmer { 0%{background-position:-200%} 100%{background-position:200%} }
+        @keyframes glowDot { 0%,100%{box-shadow:0 0 6px #00ff88} 50%{box-shadow:0 0 16px #00ff88,0 0 30px #00ff88} }
 
-        /* ===== HERO ===== */
-        .hero {
-            min-height: 100vh;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-            text-align: center; padding: 0 24px;
-            position: relative;
-        }
-
-        .hero-badge {
-            display: inline-flex; align-items: center; gap: 8px;
-            background: rgba(0,229,255,0.08); border: 1px solid rgba(0,229,255,0.25);
-            color: #00e5ff; font-size: 12px; font-weight: 900;
-            padding: 6px 18px; border-radius: 30px;
-            letter-spacing: 1px; text-transform: uppercase;
-            margin-bottom: 28px;
-            animation: fadeInUp 0.6s ease both;
-        }
-        .hero-badge i { font-size: 10px; animation: pulse 2s infinite; }
-
-        .hero-title {
-            font-family: 'Righteous', cursive;
-            font-size: clamp(36px, 10vw, 72px);
-            line-height: 1.15; margin-bottom: 12px;
-            animation: fadeInUp 0.6s 0.1s ease both;
-        }
-        .hero-title .line1 { display: block; color: rgba(255,255,255,0.6); font-size: 0.5em; letter-spacing: 3px; text-transform: uppercase; margin-bottom: 6px; }
-        .hero-title .line2 {
-            display: block;
-            background: linear-gradient(135deg, #00e5ff, #00ff88, #bf00ff, #ff4de4, #00e5ff);
-            background-size: 300% 300%;
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            animation: rainbowShift 4s ease infinite;
-            filter: drop-shadow(0 0 30px rgba(0,229,255,0.4));
-        }
-        .hero-title .line3 { display: block; color: #fff; font-size: 0.65em; }
-
-        .hero-sub {
-            font-size: 15px; color: rgba(255,255,255,0.45); font-weight: 700;
-            max-width: 380px; line-height: 1.7; margin-bottom: 40px;
-            animation: fadeInUp 0.6s 0.2s ease both;
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Nunito', sans-serif; background: #06070f; color: #fff;
+            overflow-x: hidden; min-height: 100vh;
+            background-image:
+                radial-gradient(ellipse at 15% 20%, rgba(0,229,255,0.07) 0%, transparent 50%),
+                radial-gradient(ellipse at 85% 80%, rgba(191,0,255,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 10%, rgba(0,255,136,0.05) 0%, transparent 45%),
+                linear-gradient(rgba(0,229,255,0.04) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0,229,255,0.04) 1px, transparent 1px);
+            background-size: 100% 100%, 100% 100%, 100% 100%, 50px 50px, 50px 50px;
         }
 
-        .hero-cta {
-            display: flex; flex-direction: column; align-items: center; gap: 14px;
-            animation: fadeInUp 0.6s 0.3s ease both;
-        }
-        .btn-explore {
-            display: inline-flex; align-items: center; gap: 10px;
-            padding: 16px 40px;
-            background: linear-gradient(135deg, #00e5ff, #00ff88);
-            border: none; border-radius: 50px; color: #06070f;
-            font-family: 'Nunito', sans-serif; font-size: 16px; font-weight: 900;
-            cursor: pointer; text-decoration: none; letter-spacing: 0.5px;
-            box-shadow: 0 8px 30px rgba(0,229,255,0.4);
-            transition: 0.25s; animation: floatAnim 3s ease-in-out infinite;
-        }
-        .btn-explore:hover { transform: translateY(-4px) scale(1.04); box-shadow: 0 14px 40px rgba(0,229,255,0.6); }
-        .btn-explore i { font-size: 14px; }
+        /* HERO */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 40px 24px 60px; }
 
-        .hero-hint { font-size: 12px; color: rgba(255,255,255,0.25); font-weight: 700; letter-spacing: 0.5px; }
+        .hero-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(0,229,255,0.08); border:1px solid rgba(0,229,255,0.2); color:#00e5ff; font-size:11px; font-weight:900; padding:6px 16px; border-radius:30px; letter-spacing:2px; text-transform:uppercase; margin-bottom:32px; animation:fadeUp 0.7s ease both; }
+        .hero-badge .dot { width:7px; height:7px; border-radius:50%; background:#00ff88; animation:glowDot 2s ease-in-out infinite; }
 
-        /* ===== FEATURES ===== */
-        .features {
-            padding: 60px 24px;
-            max-width: 900px; margin: 0 auto;
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-        }
-        .feat-card {
-            background: rgba(13,15,25,0.85); backdrop-filter: blur(12px);
-            border-radius: 20px; padding: 28px 22px;
-            border: 1px solid rgba(255,255,255,0.07);
-            text-align: center; transition: 0.3s;
-            animation: fadeInUp 0.6s ease both;
-        }
-        .feat-card:hover { border-color: rgba(0,229,255,0.3); transform: translateY(-6px); box-shadow: 0 16px 40px rgba(0,229,255,0.1); }
-        .feat-icon {
-            width: 60px; height: 60px; border-radius: 18px; margin: 0 auto 16px;
-            display: flex; align-items: center; justify-content: center; font-size: 24px;
-        }
-        .feat-icon.cyan   { background: rgba(0,229,255,0.12); color: #00e5ff; border: 1px solid rgba(0,229,255,0.25); }
-        .feat-icon.green  { background: rgba(0,255,136,0.12); color: #00ff88; border: 1px solid rgba(0,255,136,0.25); }
-        .feat-icon.purple { background: rgba(191,0,255,0.12); color: #bf00ff; border: 1px solid rgba(191,0,255,0.25); }
-        .feat-title { font-family: 'Righteous', cursive; font-size: 18px; color: #fff; margin-bottom: 8px; }
-        .feat-desc  { font-size: 13px; color: rgba(255,255,255,0.45); font-weight: 700; line-height: 1.65; }
+        .hero-title { font-family:'Righteous',cursive; font-size:clamp(38px,11vw,78px); line-height:1.1; margin-bottom:8px; animation:fadeUp 0.7s 0.1s ease both; }
+        .hero-title .hello { display:block; color:rgba(255,255,255,0.45); font-size:0.38em; font-weight:400; letter-spacing:6px; text-transform:uppercase; margin-bottom:10px; font-family:'Nunito',sans-serif; }
+        .hero-title .brand { display:block; background:linear-gradient(135deg,#00e5ff 0%,#00ff88 30%,#bf00ff 60%,#ff4de4 80%,#00e5ff 100%); background-size:300% 300%; -webkit-background-clip:text; -webkit-text-fill-color:transparent; animation:rainbow 5s ease infinite; filter:drop-shadow(0 0 40px rgba(0,229,255,0.3)); }
+        .hero-title .tagline { display:block; font-size:0.33em; color:rgba(255,255,255,0.35); font-family:'Nunito',sans-serif; font-weight:700; letter-spacing:3px; margin-top:12px; }
 
-        /* ===== FOOTER SIMPEL ===== */
-        .footer-simple {
-            text-align: center; padding: 32px 24px 48px;
-            border-top: 1px solid rgba(255,255,255,0.06);
-        }
-        .footer-brand {
-            font-family: 'Righteous', cursive; font-size: 22px;
-            background: linear-gradient(90deg, #00e5ff, #00ff88);
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-            margin-bottom: 8px;
-        }
-        .footer-copy { font-size: 12px; color: rgba(255,255,255,0.25); font-weight: 700; }
+        .hero-desc { font-size:15px; color:rgba(255,255,255,0.45); font-weight:700; max-width:400px; line-height:1.8; margin:28px auto 40px; animation:fadeUp 0.7s 0.2s ease both; }
+        .hero-desc strong { color:#00e5ff; font-weight:900; }
 
-        /* ===== NAVBAR OVERRIDE untuk index — hanya garis 3 ===== */
-        .navbar-index {
-            position: fixed; top: 0; width: 100%; height: 68px;
-            background: transparent;
-            backdrop-filter: none;
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 0 25px; z-index: 1000;
-        }
+        .hero-actions { display:flex; flex-direction:column; align-items:center; gap:14px; animation:fadeUp 0.7s 0.3s ease both; }
+        .btn-primary { display:inline-flex; align-items:center; gap:10px; padding:17px 44px; background:linear-gradient(135deg,#00e5ff,#00ff88); border:none; border-radius:50px; color:#06070f; font-family:'Nunito',sans-serif; font-size:16px; font-weight:900; cursor:pointer; text-decoration:none; letter-spacing:0.3px; box-shadow:0 8px 35px rgba(0,229,255,0.45); transition:0.25s; animation:float 3.5s ease-in-out infinite; }
+        .btn-primary:hover { transform:scale(1.06) translateY(-3px); box-shadow:0 14px 50px rgba(0,229,255,0.65); }
+        .hero-note { font-size:12px; color:rgba(255,255,255,0.22); font-weight:700; }
+        .hero-note i { color:#00ff88; }
 
-        @media (max-width: 500px) {
-            .features { grid-template-columns: 1fr; }
-        }
+        /* STATS */
+        .stats { display:flex; justify-content:center; gap:40px; flex-wrap:wrap; max-width:600px; margin:0 auto 70px; padding:0 24px; animation:fadeUp 0.7s 0.4s ease both; }
+        .stat-item { text-align:center; }
+        .stat-num { font-family:'Righteous',cursive; font-size:32px; background:linear-gradient(135deg,#00e5ff,#00ff88); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
+        .stat-label { font-size:11px; color:rgba(255,255,255,0.3); font-weight:700; text-transform:uppercase; letter-spacing:1px; margin-top:2px; }
+
+        /* SECTION */
+        .section { padding:0 24px 80px; max-width:840px; margin:0 auto; }
+        .section-title { text-align:center; font-family:'Righteous',cursive; font-size:26px; color:#fff; margin-bottom:6px; }
+        .section-sub { text-align:center; font-size:13px; color:rgba(255,255,255,0.3); font-weight:700; margin-bottom:28px; }
+
+        /* FEATURES */
+        .features-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(230px,1fr)); gap:16px; }
+        .feat-card { background:rgba(13,15,25,0.88); backdrop-filter:blur(12px); border-radius:20px; padding:26px 20px; border:1px solid rgba(255,255,255,0.06); transition:0.3s; animation:fadeUp 0.6s ease both; position:relative; overflow:hidden; }
+        .feat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:2px; background:linear-gradient(90deg,#00e5ff,#00ff88,#bf00ff); background-size:200% 100%; animation:shimmer 3s linear infinite; opacity:0; transition:0.3s; }
+        .feat-card:hover { border-color:rgba(0,229,255,0.25); transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,229,255,0.08); }
+        .feat-card:hover::before { opacity:1; }
+        .feat-icon { width:52px; height:52px; border-radius:16px; display:flex; align-items:center; justify-content:center; font-size:22px; margin-bottom:16px; }
+        .ic-cyan   { background:rgba(0,229,255,0.1); color:#00e5ff; border:1px solid rgba(0,229,255,0.2); }
+        .ic-green  { background:rgba(0,255,136,0.1); color:#00ff88; border:1px solid rgba(0,255,136,0.2); }
+        .ic-purple { background:rgba(191,0,255,0.1); color:#bf00ff; border:1px solid rgba(191,0,255,0.2); }
+        .ic-orange { background:rgba(255,123,0,0.1); color:#ff7b00; border:1px solid rgba(255,123,0,0.2); }
+        .feat-title { font-family:'Righteous',cursive; font-size:17px; color:#fff; margin-bottom:8px; }
+        .feat-desc  { font-size:13px; color:rgba(255,255,255,0.4); font-weight:700; line-height:1.7; }
+
+        /* WHY */
+        .why-list { display:flex; flex-direction:column; gap:12px; }
+        .why-item { display:flex; align-items:flex-start; gap:14px; background:rgba(13,15,25,0.7); border-radius:14px; padding:16px 18px; border:1px solid rgba(255,255,255,0.05); transition:0.2s; animation:fadeUp 0.6s ease both; }
+        .why-item:hover { border-color:rgba(0,229,255,0.2); }
+        .why-icon { font-size:18px; margin-top:2px; flex-shrink:0; }
+        .why-title { font-size:14px; font-weight:900; color:#fff; margin-bottom:3px; }
+        .why-text  { font-size:12px; color:rgba(255,255,255,0.4); font-weight:700; line-height:1.6; }
+
+        /* CTA */
+        .cta-box { margin:0 24px 80px; max-width:840px; margin-left:auto; margin-right:auto; padding:44px 28px; background:linear-gradient(135deg,rgba(0,229,255,0.07),rgba(0,255,136,0.04)); border:1px solid rgba(0,229,255,0.18); border-radius:28px; text-align:center; animation:fadeUp 0.6s ease both; }
+        .cta-box h2 { font-family:'Righteous',cursive; font-size:24px; margin-bottom:10px; }
+        .cta-box p  { font-size:14px; color:rgba(255,255,255,0.4); font-weight:700; margin-bottom:24px; }
+
+        /* FOOTER */
+        .footer { text-align:center; padding:28px 24px 44px; border-top:1px solid rgba(255,255,255,0.05); }
+        .footer-brand { font-family:'Righteous',cursive; font-size:20px; background:linear-gradient(90deg,#00e5ff,#00ff88); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px; }
+        .footer-links { display:flex; justify-content:center; gap:20px; margin-bottom:14px; flex-wrap:wrap; }
+        .footer-links a { font-size:13px; color:rgba(255,255,255,0.3); font-weight:700; text-decoration:none; transition:0.2s; }
+        .footer-links a:hover { color:#00e5ff; }
+        .footer-copy { font-size:11px; color:rgba(255,255,255,0.15); font-weight:700; }
+
+        @media(max-width:500px){ .features-grid{grid-template-columns:1fr} .stats{gap:24px} }
     </style>
 </head>
 <body>
 
-    <canvas id="canvas"></canvas>
+<section class="hero">
+    <div class="hero-badge"><div class="dot"></div> Online &amp; Siap Digunakan</div>
+    <h1 class="hero-title">
+        <span class="hello">Hello, Welcome to</span>
+        <span class="brand">DzzXNzz Store</span>
+        <span class="tagline">Your Hosting Partner</span>
+    </h1>
+    <p class="hero-desc">Panel <strong>Pterodactyl</strong> berkualitas tinggi, harga terjangkau. Setup otomatis dalam hitungan menit setelah pembayaran.</p>
+    <div class="hero-actions">
+        <a href="/panel" class="btn-primary"><i class="fas fa-rocket"></i> Jelajahi Panel</a>
+        <span class="hero-note"><i class="fas fa-check-circle"></i> Mulai dari Rp 1.000 &nbsp;·&nbsp; Bayar QRIS &nbsp;·&nbsp; Aktif Otomatis</span>
+    </div>
+</section>
 
+<div class="stats">
+    <div class="stat-item"><div class="stat-num">5+</div><div class="stat-label">Pilihan Paket</div></div>
+    <div class="stat-item"><div class="stat-num">∞</div><div class="stat-label">Unlimited Plan</div></div>
+    <div class="stat-item"><div class="stat-num">24/7</div><div class="stat-label">Uptime</div></div>
+    <div class="stat-item"><div class="stat-num">⚡</div><div class="stat-label">Aktif Instan</div></div>
+</div>
 
+<section class="section">
+    <h2 class="section-title">Apa yang Kami Tawarkan</h2>
+    <p class="section-sub">Panel VPS siap pakai untuk kebutuhan hosting kamu</p>
+    <div class="features-grid">
+        <div class="feat-card" style="animation-delay:0s"><div class="feat-icon ic-cyan"><i class="fas fa-server"></i></div><div class="feat-title">Panel Pterodactyl</div><div class="feat-desc">VPS legal dengan panel Pterodactyl. Tersedia pilihan RAM dari 1 GB hingga Unlimited.</div></div>
+        <div class="feat-card" style="animation-delay:0.08s"><div class="feat-icon ic-green"><i class="fas fa-bolt"></i></div><div class="feat-title">Aktif Otomatis</div><div class="feat-desc">Bayar QRIS, panel langsung aktif tanpa menunggu konfirmasi manual dari admin.</div></div>
+        <div class="feat-card" style="animation-delay:0.16s"><div class="feat-icon ic-purple"><i class="fas fa-shield-alt"></i></div><div class="feat-title">Aman &amp; Terisolasi</div><div class="feat-desc">Setiap server berjalan di container terpisah. Data kamu aman dari pengguna lain.</div></div>
+        <div class="feat-card" style="animation-delay:0.24s"><div class="feat-icon ic-orange"><i class="fas fa-clock"></i></div><div class="feat-title">Pilihan Durasi</div><div class="feat-desc">Uji Coba 5 hari, paket 10/20/30 hari, hingga Unlimited. Sesuaikan dengan kebutuhan.</div></div>
+    </div>
+</section>
 
-    <!-- HERO -->
-    <section class="hero">
-        <div class="hero-badge"><i class="fas fa-circle"></i> Online & Ready</div>
+<section class="section" style="padding-top:0">
+    <h2 class="section-title">Kenapa Harus Kami?</h2>
+    <p class="section-sub">Keunggulan yang membedakan kami dari yang lain</p>
+    <div class="why-list">
+        <div class="why-item"><div class="why-icon" style="color:#00e5ff"><i class="fas fa-check-circle"></i></div><div><div class="why-title">Harga Paling Terjangkau</div><div class="why-text">Mulai dari Rp 1.000 untuk uji coba. Tidak perlu keluar banyak biaya hanya untuk mencoba layanan kami.</div></div></div>
+        <div class="why-item"><div class="why-icon" style="color:#00ff88"><i class="fas fa-magic"></i></div><div><div class="why-title">Setup 100% Otomatis</div><div class="why-text">Sistem kami mendeteksi pembayaran dan membuat server secara otomatis. Tidak ada proses manual.</div></div></div>
+        <div class="why-item"><div class="why-icon" style="color:#bf00ff"><i class="fas fa-users"></i></div><div><div class="why-title">Multi User Per Akun</div><div class="why-text">Buat hingga 50 user email panel dalam satu akun. Cocok untuk tim atau multiple project.</div></div></div>
+        <div class="why-item"><div class="why-icon" style="color:#ffe000"><i class="fas fa-sync-alt"></i></div><div><div class="why-title">Auto Suspend &amp; Kelola</div><div class="why-text">Panel expired otomatis di-suspend. Pantau status, spek, dan login panel lewat dashboard kamu.</div></div></div>
+    </div>
+</section>
 
-        <h1 class="hero-title">
-            <span class="line1">Hello, Welcome to</span>
-            <span class="line2">DzzXNzz Store</span>
-            <span class="line3">Your Hosting Partner</span>
-        </h1>
+<div class="cta-box">
+    <h2>Siap Mulai? 🚀</h2>
+    <p>Daftar gratis, pilih paket, bayar, dan panel kamu langsung aktif.</p>
+    <a href="/panel" class="btn-primary" style="animation:none;display:inline-flex"><i class="fas fa-rocket"></i> Lihat Paket Panel</a>
+</div>
 
-        <p class="hero-sub">
-            Panel Pterodactyl berkualitas tinggi dengan harga terjangkau.
-            Performa maksimal, setup instan, dukungan penuh.
-        </p>
+<footer class="footer">
+    <div class="footer-brand">DzzXNzz Store</div>
+    <div class="footer-links">
+        <a href="/panel">Panel Pterodactyl</a>
+        <a href="/riwayat">Riwayat Order</a>
+        <a href="/login">Login</a>
+        <a href="/register">Register</a>
+    </div>
+    <div class="footer-copy">© 2026 DzzXNzz Store · All rights reserved</div>
+</footer>
 
-        <div class="hero-cta">
-            <a href="/product/panelptero" class="btn-explore">
-                <i class="fas fa-rocket"></i> Jelajahi Panel
-            </a>
-            <span class="hero-hint">Mulai dari Rp 1.000 · Bayar QRIS</span>
-        </div>
-    </section>
-
-    <!-- FEATURES -->
-    <section class="features">
-        <div class="feat-card" style="animation-delay:0s">
-            <div class="feat-icon cyan"><i class="fas fa-server"></i></div>
-            <div class="feat-title">Panel Pterodactyl</div>
-            <div class="feat-desc">
-                VPS legal siap pakai dengan panel Pterodactyl. Performa tinggi, tersedia berbagai pilihan RAM dari 1 GB hingga Unlimited.
-            </div>
-        </div>
-        <div class="feat-card" style="animation-delay:0.1s">
-            <div class="feat-icon green"><i class="fas fa-bolt"></i></div>
-            <div class="feat-title">Setup Instan</div>
-            <div class="feat-desc">
-                Bayar QRIS, panel langsung aktif otomatis. Tidak perlu menunggu konfirmasi manual dari admin.
-            </div>
-        </div>
-        <div class="feat-card" style="animation-delay:0.2s">
-            <div class="feat-icon purple"><i class="fas fa-shield-alt"></i></div>
-            <div class="feat-title">Aman & Terpercaya</div>
-            <div class="feat-desc">
-                Setiap panel berjalan di lingkungan terisolasi. Data aman, server stabil, dan uptime terjamin.
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER SIMPEL -->
-    <footer class="footer-simple">
-        <div class="footer-brand">DzzXNzz Store</div>
-        <div class="footer-copy">© 2026 DzzXNzz Store. All rights reserved.</div>
-    </footer>
-
-    <script src="/script.js"></script>
-    <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Update sidebar & avatar
-        var isLogin = typeof Auth !== 'undefined' && Auth.isLoggedIn();
-        var authMenu = document.getElementById('sidebarAuthMenu');
-        var sidebarU = document.getElementById('sidebarUsername');
-        var sidebarA = document.getElementById('sidebarAvatar');
-        var navInit  = document.getElementById('navInitial');
-        var navAv    = document.getElementById('navAvatar');
-
-        if (isLogin) {
-            Auth.getProfile().then(function(p) {
-                if (!p) return;
-                if (sidebarU) sidebarU.textContent = p.username;
-                if (navInit)  navInit.textContent  = p.username.charAt(0).toUpperCase();
-                var av = p.avatar_url || ('https://ui-avatars.com/api/?name='+encodeURIComponent(p.username)+'&background=06070f&color=00e5ff&bold=true');
-                if (sidebarA) sidebarA.src = av;
-                if (navAv) navAv.innerHTML = '<img src="'+av+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%">';
-            });
-            if (authMenu) authMenu.innerHTML =
-                '<li><a href="/profile" style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px;color:#00e5ff;text-decoration:none">'+
-                '<i class="fas fa-user-circle"></i> Profil</a></li>'+
-                '<li><a onclick="doLogout()" style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px;color:#ff6688;cursor:pointer">'+
-                '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
-        } else {
-            if (authMenu) authMenu.innerHTML =
-                '<li><a href="/login" style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px;color:#00e5ff;text-decoration:none">'+
-                '<i class="fas fa-sign-in-alt"></i> Login</a></li>'+
-                '<li><a href="/register" style="display:flex;align-items:center;gap:10px;padding:11px 16px;border-radius:10px;font-weight:800;font-size:14px;color:#00ff88;text-decoration:none">'+
-                '<i class="fas fa-user-plus"></i> Register</a></li>';
-        }
-
-        function doLogout() {
-            if (typeof Auth !== 'undefined') Auth.logout();
-            window.location.href = '/login';
-        }
-        window.doLogout = doLogout;
-    });
-    </script>
 </body>
 </html>
