@@ -473,7 +473,7 @@
         <div class="nav-left"><button id="menu-toggle">☰</button></div>
         <div class="nav-right">
             <div class="user-menu">
-                <div class="user-avatar" id="navAvatar"><span class="nav-initial" id="navInitial">?</span></div>
+                <div class="user-avatar"><span class="nav-initial" id="navInitial">?</span></div>
 
             </div>
         </div>
@@ -1023,13 +1023,9 @@
                 if (menu) menu.innerHTML =
                     '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
                     '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
-
-                // Update navbar avatar pakai 1 huruf pertama username
-                Auth.getProfile().then(function(profile) {
-                    if (!profile) return;
-                    var initial = profile.username.charAt(0).toUpperCase();
-                    var el = document.getElementById('navInitial');
-                    if (el) el.textContent = initial;
+                // navbar: 1 huruf pertama username
+                Auth.getProfile().then(function(p) {
+                    if (p) { var el = document.getElementById('navInitial'); if (el) el.textContent = p.username.charAt(0).toUpperCase(); }
                 });
             } else {
                 if (menu) menu.innerHTML =
@@ -1042,7 +1038,7 @@
 
         function doLogout() {
             if (typeof Auth !== 'undefined') Auth.logout();
-            localStorage.removeItem('nyzz_username');
+            
             localStorage.removeItem('nyzz_session');
             window.location.reload();
         }

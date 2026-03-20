@@ -157,9 +157,9 @@
 
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <span class="user-name-text" id="sidebarUsername">DzzXNzz</span>
+            <span class="user-name-text">DzzXNzz</span>
             <div class="sidebar-pfp">
-                <img id="sidebarAvatar" src="/image/image.jpg" alt="PFP"
+                <img src="/image/image.jpg" alt="DzzXNzz"
                     onerror="this.src='https://ui-avatars.com/api/?name=?&background=06070f&color=00e5ff&bold=true'">
             </div>
         </div>
@@ -188,18 +188,19 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         // ===== SIDEBAR AUTH =====
-        var authMenu  = document.getElementById('sidebarAuthMenu');
+        // sidebar header (DzzXNzz + image.jpg) JANGAN DIUBAH
+        var authMenu   = document.getElementById('sidebarAuthMenu');
         var navInitial = document.getElementById('navInitial');
-        var isLogin   = typeof Auth !== 'undefined' && Auth.isLoggedIn();
+        var isLogin    = typeof Auth !== 'undefined' && Auth.isLoggedIn();
 
         if (isLogin) {
+            // menu logout
             if (authMenu) authMenu.innerHTML =
                 '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
                 '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
-            Auth.getProfile().then(function(profile) {
-                if (!profile) return;
-                var initial = profile.username.charAt(0).toUpperCase();
-                if (navInitial) navInitial.textContent = initial;
+            // navbar avatar: 1 huruf pertama username dari API
+            Auth.getProfile().then(function(p) {
+                if (p && navInitial) navInitial.textContent = p.username.charAt(0).toUpperCase();
             });
         } else {
             if (authMenu) authMenu.innerHTML =
