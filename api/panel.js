@@ -231,14 +231,14 @@ export default async function handler(req, res) {
     const userList = listFile?.data || [];
     if (userList.length >= 50) return res.status(400).json({ error: 'Maksimal 50 user panel per akun' });
     if (userList.find(u => u.username === username)) return res.status(400).json({ error: 'Username sudah ada' });
-    const pteroEmail = `${profile.username}_${username}@nyzz.panel`;
+    const pteroEmail = `${username}@buyer.nyzz`;
     const pteroPass  = crypto.randomBytes(12).toString('hex');
     let pteroUser;
     try {
       const pteroRes = await fetch(`${PTERO_URL}/api/application/users`, {
         method: 'POST',
         headers: { Authorization: `Bearer ${PTERO_APP_KEY}`, Accept: 'application/json', 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email: pteroEmail, username: `${profile.username}_${username}`, first_name: username, last_name: profile.username, password: pteroPass })
+        body: JSON.stringify({ email: pteroEmail, username: username, first_name: username, last_name: "buyer", password: pteroPass })
       });
       const pteroData = await pteroRes.json();
       if (!pteroRes.ok) return res.status(502).json({ error: 'Gagal buat user: ' + (pteroData.errors?.[0]?.detail || 'unknown') });

@@ -1,50 +1,16 @@
 {
   "rewrites": [
-    {
-      "source": "/",
-      "destination": "/index.html"
-    },
-    {
-      "source": "/panel",
-      "destination": "/panelptero.html"
-    },
-    {
-      "source": "/riwayat",
-      "destination": "/riwayat-order.html"
-    },
-    {
-      "source": "/login",
-      "destination": "/login.html"
-    },
-    {
-      "source": "/register",
-      "destination": "/register.html"
-    },
-    {
-      "source": "/pay",
-      "destination": "/pay.html"
-    },
-    {
-      "source": "/struk",
-      "destination": "/struk.html"
-    },
-    {
-      "source": "/create/userpanel",
-      "destination": "/create-userpanel.html"
-    },
-    {
-      "source": "/detail/panel",
-      "destination": "/detail-panel.html"
-    },
-    {
-      "source": "/api/(.*)",
-      "destination": "/api/$1"
-    }
+    { "source": "/",                    "destination": "/index.html" },
+    { "source": "/panel",               "destination": "/panelptero.html" },
+    { "source": "/riwayat",             "destination": "/riwayat-order.html" },
+    { "source": "/login",               "destination": "/login.html" },
+    { "source": "/register",            "destination": "/register.html" },
+    { "source": "/create/userpanel",    "destination": "/create-userpanel.html" },
+    { "source": "/detail/panel",        "destination": "/detail-panel.html" },
+    { "source": "/pay",                 "destination": "/pay.html" },
+    { "source": "/api/(.*)",            "destination": "/api/$1" }
   ],
   "crons": [
-    {
-      "path": "/api/cron/suspend-check",
-      "schedule": "0 0 * * *"
-    }
+    { "path": "/api/cron/suspend-check", "schedule": "0 0 * * *" }
   ]
 }
