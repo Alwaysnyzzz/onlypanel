@@ -160,6 +160,76 @@
         .cards-container.hidden  { display: none; }
         .unlimited-container { display: none; flex-direction: column; gap: 20px; width: 100%; }
 
+        /* ===== POPUP 4 LANGKAH ===== */
+        .popup-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.88); backdrop-filter:blur(8px); z-index:9999; display:none; align-items:flex-end; justify-content:center; padding:0; }
+        .popup-overlay.show { display:flex; }
+        .popup-box { background:#0d0f19; border-radius:24px 24px 0 0; width:100%; max-width:480px; max-height:92vh; overflow-y:auto; border-top:1px solid rgba(0,229,255,0.2); border-left:1px solid rgba(0,229,255,0.1); border-right:1px solid rgba(0,229,255,0.1); animation:slideUp 0.35s cubic-bezier(0.34,1.56,0.64,1); }
+        @keyframes slideUp { from{transform:translateY(100%);opacity:0} to{transform:translateY(0);opacity:1} }
+        .popup-top { display:flex; align-items:center; justify-content:space-between; padding:18px 20px 0; }
+        .popup-title { font-family:'Righteous',cursive; font-size:17px; color:#fff; }
+        .popup-close { background:rgba(255,255,255,0.08); border:none; color:rgba(255,255,255,0.5); width:30px; height:30px; border-radius:50%; cursor:pointer; font-size:14px; display:flex; align-items:center; justify-content:center; transition:0.2s; }
+        .popup-close:hover { background:rgba(255,0,0,0.2); color:#ff6688; }
+
+        /* Steps */
+        .popup-steps { display:flex; align-items:center; padding:14px 20px; }
+        .sc { width:26px; height:26px; border-radius:50%; background:rgba(255,255,255,0.08); border:2px solid rgba(255,255,255,0.15); color:rgba(255,255,255,0.3); font-size:11px; font-weight:900; display:flex; align-items:center; justify-content:center; transition:0.3s; flex-shrink:0; }
+        .sc.active { background:#00e5ff; border-color:#00e5ff; color:#06070f; }
+        .sc.done   { background:#00ff88; border-color:#00ff88; color:#06070f; }
+        .sl { flex:1; height:2px; background:rgba(255,255,255,0.1); margin:0 4px; transition:0.3s; }
+        .sl.done { background:#00ff88; }
+        .sc-wrap { display:flex; flex-direction:column; align-items:center; gap:4px; flex-shrink:0; }
+        .sc-lbl { font-size:9px; color:rgba(255,255,255,0.3); font-weight:800; white-space:nowrap; }
+
+        /* Content */
+        .popup-content { padding:4px 20px 24px; }
+        .popup-step { display:none; }
+        .popup-step.active { display:block; }
+
+        .prow { display:flex; justify-content:space-between; align-items:center; padding:9px 0; border-bottom:1px solid rgba(255,255,255,0.05); font-size:13px; }
+        .prow:last-child { border:none; }
+        .prow-lbl { color:rgba(255,255,255,0.4); font-weight:700; }
+        .prow-val { color:#fff; font-weight:900; }
+        .prow-val.c { color:#00e5ff; }
+
+        .plabel { font-size:11px; font-weight:900; color:#00e5ff; letter-spacing:1px; text-transform:uppercase; margin:14px 0 6px; display:block; }
+        .pinput { width:100%; padding:12px 14px; background:rgba(0,0,0,0.4); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-family:'Nunito',sans-serif; font-size:14px; font-weight:700; outline:none; transition:0.2s; }
+        .pinput:focus { border-color:#00e5ff; box-shadow:0 0 12px rgba(0,229,255,0.15); }
+        .pinput::placeholder { color:rgba(255,255,255,0.2); }
+        .pselect { width:100%; padding:12px 14px; background:rgba(0,0,0,0.4); border:1.5px solid rgba(255,255,255,0.1); border-radius:10px; color:#fff; font-family:'Nunito',sans-serif; font-size:14px; font-weight:700; outline:none; transition:0.2s; appearance:none; }
+        .pselect:focus { border-color:#00e5ff; }
+        .add-user-link { display:inline-flex; align-items:center; gap:6px; color:#00e5ff; font-size:12px; font-weight:900; background:rgba(0,229,255,0.08); border:1px solid rgba(0,229,255,0.25); border-radius:20px; padding:5px 12px; cursor:pointer; margin-top:8px; transition:0.2s; text-decoration:none; }
+        .add-user-link:hover { background:rgba(0,229,255,0.15); }
+        .phint { font-size:11px; color:rgba(255,255,255,0.25); font-weight:700; margin-top:4px; }
+
+        .palert { border-radius:8px; padding:9px 12px; font-size:12px; font-weight:700; margin-bottom:10px; display:none; align-items:center; gap:8px; }
+        .palert.show { display:flex; }
+        .palert.err  { background:rgba(255,0,0,0.08); border:1px solid rgba(255,0,0,0.2); color:#ff6688; }
+
+        .konfirm-sec { margin-bottom:12px; }
+        .konfirm-title { font-size:10px; font-weight:900; color:rgba(255,255,255,0.35); text-transform:uppercase; letter-spacing:1px; margin-bottom:6px; }
+        .konfirm-box { background:rgba(0,0,0,0.3); border:1px solid rgba(255,255,255,0.07); border-radius:10px; padding:10px 12px; }
+
+        .metode-btn { width:100%; padding:14px; background:rgba(0,229,255,0.08); border:1.5px solid rgba(0,229,255,0.3); border-radius:12px; color:#00e5ff; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.2s; display:flex; align-items:center; gap:12px; margin-bottom:10px; }
+        .metode-btn:hover { background:rgba(0,229,255,0.15); }
+
+        .pnav { display:flex; gap:10px; margin-top:18px; }
+        .btn-prev { flex:1; padding:13px; background:rgba(255,255,255,0.06); border:1px solid rgba(255,255,255,0.1); border-radius:40px; color:rgba(255,255,255,0.5); font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.2s; }
+        .btn-next { flex:2; padding:13px; background:linear-gradient(135deg,#00e5ff,#00ff88); border:none; border-radius:40px; color:#06070f; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; cursor:pointer; transition:0.2s; box-shadow:0 4px 20px rgba(0,229,255,0.3); }
+        .btn-next:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(0,229,255,0.4); }
+        .btn-next:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+
+        /* Auth required popup */
+        .auth-required { text-align:center; padding:20px 0 10px; }
+        .auth-required i { font-size:36px; color:rgba(255,100,0,0.6); margin-bottom:12px; display:block; }
+        .auth-required h3 { font-size:17px; color:#fff; margin-bottom:8px; }
+        .auth-required p { font-size:13px; color:rgba(255,255,255,0.4); font-weight:700; margin-bottom:18px; }
+        .auth-btns { display:flex; gap:10px; }
+        .auth-btns a { flex:1; padding:13px; border-radius:40px; font-family:'Nunito',sans-serif; font-size:14px; font-weight:900; text-align:center; text-decoration:none; cursor:pointer; transition:0.2s; }
+        .auth-btns .btn-reg { background:linear-gradient(135deg,#00e5ff,#00ff88); color:#06070f; border:none; }
+        .auth-btns .btn-log { background:transparent; border:1.5px solid rgba(0,229,255,0.4); color:#00e5ff; }
+
+        .unlimited-container { display: none; flex-direction: column; gap: 20px; width: 100%; }
+
         /* ===== 10 HARI — LOW QUALITY CARDS ===== */
         @keyframes urgentPulse { 0%,100%{opacity:1} 50%{opacity:0.5} }
         @keyframes stockBlink  { 0%,100%{border-color:rgba(255,85,0,0.5)} 50%{border-color:rgba(255,85,0,0.15)} }
@@ -402,7 +472,6 @@
     <nav class="navbar">
         <div class="nav-left"><button id="menu-toggle">☰</button></div>
         <div class="nav-right">
-            <a href="/isisaldo" class="coins-wrapper">🪙 <span id="coinCount">0</span> +</a>
             <div class="user-menu">
                 <div class="user-avatar"><span class="nav-initial">?</span></div>
 
@@ -748,6 +817,72 @@
             </div>
 
         </div>
+
+    <!-- POPUP ORDER -->
+    <div class="popup-overlay" id="popupOverlay">
+        <div class="popup-box">
+            <div class="popup-top">
+                <span class="popup-title" id="popupTitle">Order Panel</span>
+                <button class="popup-close" onclick="closePopup()">✕</button>
+            </div>
+            <div class="popup-steps" id="popupSteps">
+                <div class="sc-wrap"><div class="sc active" id="sc1">1</div><div class="sc-lbl">Spek</div></div>
+                <div class="sl" id="sl1"></div>
+                <div class="sc-wrap"><div class="sc" id="sc2">2</div><div class="sc-lbl">Data</div></div>
+                <div class="sl" id="sl2"></div>
+                <div class="sc-wrap"><div class="sc" id="sc3">3</div><div class="sc-lbl">Konfirm</div></div>
+                <div class="sl" id="sl3"></div>
+                <div class="sc-wrap"><div class="sc" id="sc4">4</div><div class="sc-lbl">Bayar</div></div>
+            </div>
+            <div class="popup-content">
+                <div class="palert err" id="palert"><i class="fas fa-exclamation-triangle"></i><span id="palertTxt"></span></div>
+
+                <!-- STEP 1 -->
+                <div class="popup-step active" id="pstep1">
+                    <div id="spekRows"></div>
+                    <div class="pnav"><button class="btn-next" onclick="goStep(2)">Lanjut <i class="fas fa-arrow-right"></i></button></div>
+                </div>
+
+                <!-- STEP 2 -->
+                <div class="popup-step" id="pstep2">
+                    <span class="plabel">Nama Panel</span>
+                    <input class="pinput" id="pNama" type="text" placeholder="contoh: server-bot" maxlength="32">
+                    <span class="plabel">Password Panel <small style="color:rgba(255,255,255,0.3);font-size:10px">(opsional)</small></span>
+                    <input class="pinput" id="pPass" type="password" placeholder="kosong = auto-generate">
+                    <span class="plabel">User Email Panel</span>
+                    <select class="pselect" id="pUser"><option value="">-- Memuat... --</option></select>
+                    <a class="add-user-link" id="pAddUser" href="#" target="_blank"><i class="fas fa-plus"></i> Buat User Email Panel</a>
+                    <span class="plabel">Deskripsi <small style="color:rgba(255,255,255,0.3);font-size:10px">(opsional)</small></span>
+                    <input class="pinput" id="pDesk" type="text" placeholder="contoh: server bot discord">
+                    <div class="pnav">
+                        <button class="btn-prev" onclick="closePopup()">Batal</button>
+                        <button class="btn-next" onclick="goStep(3)">Lanjut <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- STEP 3 -->
+                <div class="popup-step" id="pstep3">
+                    <div class="konfirm-sec"><div class="konfirm-title">Spesifikasi</div><div class="konfirm-box" id="konfSpek"></div></div>
+                    <div class="konfirm-sec"><div class="konfirm-title">Data Panel</div><div class="konfirm-box" id="konfData"></div></div>
+                    <div class="pnav">
+                        <button class="btn-prev" onclick="goStep(2)"><i class="fas fa-arrow-left"></i></button>
+                        <button class="btn-next" onclick="goStep(4)">Lanjut <i class="fas fa-arrow-right"></i></button>
+                    </div>
+                </div>
+
+                <!-- STEP 4 -->
+                <div class="popup-step" id="pstep4">
+                    <p style="font-size:13px;color:rgba(255,255,255,0.45);font-weight:700;margin-bottom:14px">Pilih metode pembayaran:</p>
+                    <button class="metode-btn"><i class="fas fa-qrcode" style="font-size:20px"></i><div><div>QRIS (Pakasir)</div><div style="font-size:11px;color:rgba(255,255,255,0.4);font-weight:700">Scan QR Code</div></div></button>
+                    <div class="pnav">
+                        <button class="btn-prev" onclick="goStep(3)"><i class="fas fa-arrow-left"></i></button>
+                        <button class="btn-next" id="btnBayar" onclick="bayarNow()"><i class="fas fa-qrcode"></i> Buat QRIS</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     </main>
 
     <footer class="footer">
@@ -851,44 +986,32 @@
             document.querySelector('.unlimited-tab').classList.add('active');
         };
 
-        // ===== TOMBOL PESAN 10 HARI =====
-        document.querySelectorAll('#tab10 .btn-pesan-low').forEach(function(btn) {
-            btn.onclick = function() {
-                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
-                window.location.href = '/pay?panel=' + panel + '&durasi=10&amount=' + btn.getAttribute('data-harga');
-            };
+        // ===== TOMBOL PESAN — SEMUA BUKA POPUP =====
+        function bindPesan(selector, getSpek) {
+            document.querySelectorAll(selector).forEach(function(btn) {
+                btn.onclick = function() { openPopup(getSpek(btn)); };
+            });
+        }
+        bindPesan('#tab10 .btn-pesan-low', function(btn) {
+            var card = btn.closest('[data-panel]');
+            return { panel: card.getAttribute('data-panel'), durasi: 10, harga: parseInt(btn.getAttribute('data-harga')), tier: 'LOW', ram: card.getAttribute('data-panel')+' GB', label: card.getAttribute('data-panel')+' GB / 10 Hari' };
         });
-
-        // ===== TOMBOL PESAN 20 HARI =====
-        document.querySelectorAll('#tab20 .btn-pesan').forEach(function(btn) {
-            btn.onclick = function() {
-                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
-                window.location.href = '/pay?panel=' + panel + '&durasi=20&amount=' + btn.getAttribute('data-harga');
-            };
+        bindPesan('#tab20 .btn-pesan', function(btn) {
+            var card = btn.closest('[data-panel]');
+            var tier = card.querySelector('.card-tier') ? card.querySelector('.card-tier').textContent.trim() : 'LOW';
+            return { panel: card.getAttribute('data-panel'), durasi: 20, harga: parseInt(btn.getAttribute('data-harga')), tier: tier, ram: card.getAttribute('data-panel')+' GB', label: card.getAttribute('data-panel')+' GB / 20 Hari' };
         });
-
-        // ===== TOMBOL PESAN 30 HARI =====
-        document.querySelectorAll('#tab30 .btn-order').forEach(function(btn) {
-            btn.onclick = function() {
-                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
-                window.location.href = '/pay?panel=' + panel + '&durasi=30&amount=' + btn.getAttribute('data-harga');
-            };
+        bindPesan('#tab30 .btn-order', function(btn) {
+            var card = btn.closest('[data-panel]');
+            return { panel: card.getAttribute('data-panel'), durasi: 30, harga: parseInt(btn.getAttribute('data-harga')), tier: 'VIP', ram: card.getAttribute('data-panel')+' GB', label: card.getAttribute('data-panel')+' GB / 30 Hari' };
         });
-
-        // ===== TOMBOL PESAN UNLIMITED =====
-        document.querySelectorAll('#tabUnlimited button[data-harga]').forEach(function(btn) {
-            btn.onclick = function() {
-                var durasi = btn.closest('[data-durasi]').getAttribute('data-durasi');
-                window.location.href = '/pay?panel=unlimited&durasi=' + durasi + '&amount=' + btn.getAttribute('data-harga');
-            };
+        bindPesan('#tabUnlimited button[data-harga]', function(btn) {
+            var card = btn.closest('[data-durasi]');
+            var dur  = parseInt(card.getAttribute('data-durasi'));
+            return { panel: 'unlimited', durasi: dur, harga: parseInt(btn.getAttribute('data-harga')), tier: 'UNLIMITED', ram: '∞', label: 'Unlimited / '+dur+' Hari' };
         });
-
-        // Uji coba pesan
-        document.querySelectorAll('#tabUjicoba .btn-ujicoba').forEach(function(btn) {
-            btn.onclick = function() {
-                var panel = btn.closest('[data-panel]').getAttribute('data-panel');
-                window.location.href = '/pay?panel='+panel+'&durasi=5&amount='+btn.getAttribute('data-harga');
-            };
+        bindPesan('#tabUjicoba .btn-ujicoba', function(btn) {
+            return { panel: '1', durasi: 5, harga: parseInt(btn.getAttribute('data-harga')), tier: 'UJI COBA', ram: '1 GB', label: '1 GB / 5 Hari (Uji Coba)' };
         });
     
         // ===== UPDATE SIDEBAR AUTH =====
@@ -927,6 +1050,150 @@
             window.location.reload();
         }
         window.doLogout = doLogout;
+
+        // ===== POPUP LOGIC =====
+        var _spek = {};
+
+        function openPopup(spek) {
+            // Cek login dulu
+            if (typeof Auth === 'undefined' || !Auth.isLoggedIn()) {
+                showAuthRequired();
+                return;
+            }
+            _spek = spek;
+            showStep(1);
+            // Isi spek rows
+            document.getElementById('spekRows').innerHTML =
+                '<div class="prow"><span class="prow-lbl">Paket</span><span class="prow-val c">'+spek.label+'</span></div>'+
+                '<div class="prow"><span class="prow-lbl">RAM</span><span class="prow-val">'+spek.ram+'</span></div>'+
+                '<div class="prow"><span class="prow-lbl">Durasi</span><span class="prow-val">'+spek.durasi+' Hari</span></div>'+
+                '<div class="prow"><span class="prow-lbl">Tier</span><span class="prow-val">'+spek.tier+'</span></div>'+
+                '<div class="prow"><span class="prow-lbl">Harga</span><span class="prow-val c">Rp '+spek.harga.toLocaleString('id-ID')+'</span></div>';
+            loadUsers();
+            document.getElementById('popupOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function showAuthRequired() {
+            document.getElementById('popupSteps').style.display = 'none';
+            document.getElementById('palert').classList.remove('show');
+            document.querySelectorAll('.popup-step').forEach(function(s){ s.classList.remove('active'); });
+            document.getElementById('popupOverlay').classList.add('show');
+            document.body.style.overflow = 'hidden';
+            // Ganti konten popup
+            var box = document.querySelector('.popup-content');
+            box.innerHTML =
+                '<div class="auth-required">'+
+                '<i class="fas fa-times-circle" style="color:#ff4444"></i>'+
+                '<h3>Transaksi Ditolak</h3>'+
+                '<p>Anda belum mendaftar akun.<br>Silahkan login atau register terlebih dahulu.</p>'+
+                '<div class="auth-btns">'+
+                '<a href="/register" class="btn-reg">Register</a>'+
+                '<a href="/login" class="btn-log">Login</a>'+
+                '</div></div>';
+        }
+
+        function closePopup() {
+            document.getElementById('popupOverlay').classList.remove('show');
+            document.body.style.overflow = '';
+            // Reset
+            setTimeout(function() {
+                document.getElementById('popupSteps').style.display = 'flex';
+                document.querySelector('.popup-content').innerHTML = document.querySelector('.popup-content').innerHTML; // tidak reset, biarkan
+            }, 300);
+        }
+
+        function showStep(n) {
+            document.getElementById('palert').classList.remove('show');
+            document.querySelectorAll('.popup-step').forEach(function(s, i){ s.classList.toggle('active', i+1 === n); });
+            for (var i = 1; i <= 4; i++) {
+                var sc = document.getElementById('sc'+i);
+                var sl = document.getElementById('sl'+i);
+                if (sc) { sc.className = 'sc' + (i === n ? ' active' : i < n ? ' done' : ''); }
+                if (sl) sl.classList.toggle('done', i < n);
+            }
+        }
+
+        function goStep(n) {
+            if (n === 3) {
+                var nama = document.getElementById('pNama').value.trim();
+                var user = document.getElementById('pUser').value;
+                if (!nama) { showAlert('Nama panel wajib diisi'); return; }
+                if (!user) { showAlert('Pilih user email panel'); return; }
+                var pass = document.getElementById('pPass').value || '(auto-generate)';
+                document.getElementById('konfSpek').innerHTML =
+                    '<div class="prow"><span class="prow-lbl">Paket</span><span class="prow-val c">'+_spek.label+'</span></div>'+
+                    '<div class="prow"><span class="prow-lbl">Harga</span><span class="prow-val c">Rp '+_spek.harga.toLocaleString('id-ID')+'</span></div>';
+                document.getElementById('konfData').innerHTML =
+                    '<div class="prow"><span class="prow-lbl">Nama</span><span class="prow-val">'+nama+'</span></div>'+
+                    '<div class="prow"><span class="prow-lbl">User</span><span class="prow-val">'+user+'</span></div>'+
+                    '<div class="prow"><span class="prow-lbl">Password</span><span class="prow-val">'+pass+'</span></div>';
+            }
+            showStep(n);
+        }
+
+        function showAlert(msg) {
+            document.getElementById('palertTxt').textContent = msg;
+            document.getElementById('palert').classList.add('show');
+        }
+
+        async function loadUsers() {
+            var sel = document.getElementById('pUser');
+            sel.innerHTML = '<option value="">-- Memuat... --</option>';
+            try {
+                var r    = await fetch('/api/panel?action=get-panel-users', { headers: { Authorization: 'Bearer ' + Auth.getToken() } });
+                var list = await r.json();
+                if (!Array.isArray(list) || list.length === 0) {
+                    sel.innerHTML = '<option value="">-- Belum ada user --</option>';
+                } else {
+                    sel.innerHTML = '<option value="">-- Pilih user --</option>';
+                    list.forEach(function(u) { sel.innerHTML += '<option value="'+u.username+'">'+u.username+'</option>'; });
+                }
+                // Kalau ada user baru dari sessionStorage
+                var newU = sessionStorage.getItem('new_panel_user');
+                if (newU) { try { var nu = JSON.parse(newU); sel.innerHTML += '<option value="'+nu.username+'">'+nu.username+' (baru)</option>'; sessionStorage.removeItem('new_panel_user'); } catch(e){} }
+                var tok  = Math.random().toString(36).substr(2,16) + Date.now().toString(36);
+                document.getElementById('pAddUser').href = '/create/userpanel?t=' + tok;
+            } catch(e) { sel.innerHTML = '<option value="">-- Gagal memuat --</option>'; }
+        }
+
+        async function bayarNow() {
+            var btn = document.getElementById('btnBayar');
+            btn.disabled = true;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Memproses...';
+            try {
+                var r = await fetch('/api/panel?action=order-panel', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + Auth.getToken() },
+                    body: JSON.stringify({
+                        nama_panel: document.getElementById('pNama').value.trim(),
+                        panel_user: document.getElementById('pUser').value,
+                        panel_password: document.getElementById('pPass').value || null,
+                        deskripsi: document.getElementById('pDesk').value.trim(),
+                        spek: {
+                            ram_gb: _spek.panel === 'unlimited' ? null : _spek.panel,
+                            cpu_pct: _spek.panel === 'unlimited' ? 0 : 100,
+                            durasi_hari: _spek.durasi,
+                            tier: _spek.tier,
+                            harga: _spek.harga
+                        }
+                    })
+                });
+                var data = await r.json();
+                if (!r.ok) { showAlert(data.error || 'Gagal membuat order'); btn.disabled=false; btn.innerHTML='<i class="fas fa-qrcode"></i> Buat QRIS'; return; }
+                closePopup();
+                window.location.href = '/pay?order_id=' + data.order_id;
+            } catch(e) {
+                showAlert('Gagal menghubungi server: ' + e.message);
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-qrcode"></i> Buat QRIS';
+            }
+        }
+
+        window.openPopup  = openPopup;
+        window.closePopup = closePopup;
+        window.goStep     = goStep;
+        window.bayarNow   = bayarNow;
 
     });
     </script>
