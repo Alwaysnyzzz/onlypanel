@@ -188,23 +188,21 @@
     document.addEventListener('DOMContentLoaded', function() {
 
         // ===== SIDEBAR AUTH =====
-        var authMenu   = document.getElementById('sidebarAuthMenu');
-        var sidebarUname = document.getElementById('sidebarUsername');
-        var sidebarAv  = document.getElementById('sidebarAvatar');
+        var authMenu  = document.getElementById('sidebarAuthMenu');
         var navInitial = document.getElementById('navInitial');
-        var isLogin    = typeof Auth !== 'undefined' && Auth.isLoggedIn();
+        var isLogin   = typeof Auth !== 'undefined' && Auth.isLoggedIn();
 
         if (isLogin) {
-            var uname = localStorage.getItem('nyzz_username') || 'User';
-            if (sidebarUname) sidebarUname.textContent = uname;
-            if (navInitial)   navInitial.textContent   = uname.charAt(0).toUpperCase();
-            if (sidebarAv)    sidebarAv.src = 'https://ui-avatars.com/api/?name='+encodeURIComponent(uname)+'&background=06070f&color=00e5ff&bold=true';
-            if (authMenu)     authMenu.innerHTML =
+            if (authMenu) authMenu.innerHTML =
                 '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
                 '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
+            Auth.getProfile().then(function(profile) {
+                if (!profile) return;
+                var initial = profile.username.charAt(0).toUpperCase();
+                if (navInitial) navInitial.textContent = initial;
+            });
         } else {
-            if (sidebarUname) sidebarUname.textContent = 'Tamu';
-            if (authMenu)     authMenu.innerHTML =
+            if (authMenu) authMenu.innerHTML =
                 '<li><a href="/login" class="sidebar-auth-btn login"><i class="fas fa-sign-in-alt"></i> Login</a></li>'+
                 '<li><a href="/register" class="sidebar-auth-btn register"><i class="fas fa-user-plus"></i> Register</a></li>';
         }
@@ -329,7 +327,7 @@
 
         window.doLogout = function() {
             if (typeof Auth !== 'undefined') Auth.logout();
-            localStorage.removeItem('nyzz_username');
+            
             localStorage.removeItem('nyzz_session');
             window.location.reload();
         };
