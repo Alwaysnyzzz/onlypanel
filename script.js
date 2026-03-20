@@ -64,20 +64,23 @@ document.addEventListener('DOMContentLoaded', async function () {
         ? profile.avatar_url + '?v=' + Date.now()
         : `https://ui-avatars.com/api/?name=${encodeURIComponent(profile.username)}&background=06070f&color=00e5ff&bold=true`;
 
-      // Navbar avatar
+      // Navbar avatar — kalau ada foto pakai foto, kalau tidak pakai inisial 1 huruf
       document.querySelectorAll('.user-avatar').forEach(wrap => {
-        const img = new Image();
-        img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';
-        img.onload  = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
-        img.onerror = () => { wrap.innerHTML = `<span class="nav-initial">${initial}</span>`; };
-        img.src = avUrl;
+        // Update navInitial span kalau ada
+        const span = wrap.querySelector('.nav-initial');
+        if (span) span.textContent = initial;
+
+        if (profile.avatar_url) {
+          const img = new Image();
+          img.style.cssText = 'width:100%;height:100%;object-fit:cover;border-radius:50%';
+          img.onload  = () => { wrap.innerHTML = ''; wrap.appendChild(img); };
+          img.onerror = () => { wrap.innerHTML = `<span class="nav-initial" style="font-family:'Orbitron',sans-serif;font-size:15px;font-weight:900;color:#00e5ff;text-shadow:0 0 10px rgba(0,229,255,0.8);display:flex;align-items:center;justify-content:center;width:100%;height:100%">${initial}</span>`; };
+          img.src = profile.avatar_url + '?v=' + Date.now();
+        }
+        // Tidak ada avatar_url = inisial sudah di-set lewat span di atas
       });
 
-      // Sidebar username + avatar
-      const uEl = document.getElementById('sidebarUsername');
-      const aEl = document.getElementById('sidebarAvatar');
-      if (uEl) uEl.textContent = profile.username;
-      if (aEl) { aEl.src = avUrl; aEl.onerror = () => { aEl.src = `https://ui-avatars.com/api/?name=${initial}&background=06070f&color=00e5ff&bold=true`; }; }
+      // Sidebar — JANGAN diubah (hardcode DzzXNzz + image.jpg)
     }
   }
 

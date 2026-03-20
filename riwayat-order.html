@@ -140,6 +140,14 @@
         .sidebar-auth-btn.register { color:#00ff88; }
         .sidebar-auth-btn.logout   { color:#ff6688; }
         .sidebar-auth-btn:hover    { background:rgba(255,255,255,0.06); }
+
+        /* Footer */
+        .footer { text-align:center; padding:28px 24px 44px; border-top:1px solid rgba(255,255,255,0.05); margin-top:40px; }
+        .footer-brand { font-family:'Righteous',cursive; font-size:18px; background:linear-gradient(90deg,#00e5ff,#00ff88); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:10px; }
+        .footer-links { display:flex; justify-content:center; gap:20px; margin-bottom:12px; flex-wrap:wrap; }
+        .footer-links a { font-size:13px; color:rgba(255,255,255,0.3); font-weight:700; text-decoration:none; transition:0.2s; }
+        .footer-links a:hover { color:#00e5ff; }
+        .footer-copy { font-size:11px; color:rgba(255,255,255,0.15); font-weight:700; }
     </style>
 </head>
 <body>
@@ -182,23 +190,30 @@
             <div class="loader-wrap"><div class="loader-ring"></div></div>
         </div>
     </main>
+    <footer class="footer">
+        <div class="footer-brand">DzzXNzz Store</div>
+        <div class="footer-links">
+            <a href="/panel">Panel Pterodactyl</a>
+            <a href="/riwayat">Riwayat Order</a>
+            <a href="/login">Login</a>
+            <a href="/register">Register</a>
+        </div>
+        <div class="footer-copy">© 2026 DzzXNzz Store · All rights reserved</div>
+    </footer>
 
     <script src="/script.js"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
 
         // ===== SIDEBAR AUTH =====
-        // sidebar header (DzzXNzz + image.jpg) JANGAN DIUBAH
-        var authMenu   = document.getElementById('sidebarAuthMenu');
+        var authMenu  = document.getElementById('sidebarAuthMenu');
         var navInitial = document.getElementById('navInitial');
-        var isLogin    = typeof Auth !== 'undefined' && Auth.isLoggedIn();
+        var isLogin   = typeof Auth !== 'undefined' && Auth.isLoggedIn();
 
         if (isLogin) {
-            // menu logout
             if (authMenu) authMenu.innerHTML =
                 '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
                 '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
-            // navbar avatar: 1 huruf pertama username dari API
             Auth.getProfile().then(function(p) {
                 if (p && navInitial) navInitial.textContent = p.username.charAt(0).toUpperCase();
             });
@@ -208,7 +223,7 @@
                 '<li><a href="/register" class="sidebar-auth-btn register"><i class="fas fa-user-plus"></i> Register</a></li>';
         }
 
-        // ===== LOAD ORDERS =====
+                // ===== LOAD ORDERS =====
         var container = document.getElementById('orderContainer');
 
         if (!isLogin) {
