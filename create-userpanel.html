@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Buat User Panel — DzzXNzz Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#06070f;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;background-image:radial-gradient(ellipse at 20% 20%,rgba(0,229,255,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(191,0,255,0.06) 0%,transparent 50%),linear-gradient(rgba(0,229,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.04) 1px,transparent 1px);background-size:100% 100%,100% 100%,50px 50px,50px 50px}
+.card{background:rgba(13,15,25,0.95);border:1px solid rgba(0,229,255,0.15);border-radius:24px;padding:32px 24px;width:100%;max-width:400px;animation:fadeUp 0.6s ease both}
+.back{display:flex;align-items:center;gap:6px;color:rgba(255,255,255,0.3);font-size:13px;font-weight:700;text-decoration:none;margin-bottom:20px;transition:0.2s}
+.back:hover{color:#00e5ff}
+.logo{font-family:'Righteous',cursive;font-size:20px;background:linear-gradient(135deg,#00e5ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.subtitle{font-size:13px;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:24px}
+.info-box{background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.15);border-radius:12px;padding:12px 14px;font-size:12px;color:rgba(255,255,255,0.5);font-weight:700;line-height:1.6;margin-bottom:20px;display:flex;gap:8px;align-items:flex-start}
+.info-box i{color:#00e5ff;margin-top:2px;flex-shrink:0}
+.lbl{font-size:11px;font-weight:900;color:#00e5ff;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:block}
+.inp{width:100%;padding:13px 16px;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;outline:none;transition:0.2s;margin-bottom:6px}
+.inp:focus{border-color:#00e5ff;box-shadow:0 0 14px rgba(0,229,255,0.15)}
+.inp::placeholder{color:rgba(255,255,255,0.2)}
+.inp.valid{border-color:rgba(0,255,136,0.5)}
+.inp.invalid{border-color:rgba(255,0,0,0.4)}
+.hint{font-size:11px;color:rgba(255,255,255,0.25);font-weight:700;margin-bottom:16px}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,#00e5ff,#00ff88);border:none;border-radius:40px;color:#06070f;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;transition:0.25s;box-shadow:0 6px 24px rgba(0,229,255,0.35);margin-top:8px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,229,255,0.5)}
+.btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.alert{border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;margin-bottom:16px;display:none;align-items:center;gap:8px}
+.alert.show{display:flex}
+.alert.err{background:rgba(255,0,0,0.08);border:1px solid rgba(255,0,0,0.2);color:#ff6688}
+.spinner{width:16px;height:16px;border:2px solid rgba(6,7,15,0.3);border-top-color:#06070f;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px}
+.result-box{background:rgba(0,255,136,0.06);border:1px solid rgba(0,255,136,0.2);border-radius:16px;padding:18px;margin-top:16px;display:none}
+.result-box.show{display:block}
+.result-title{font-family:'Righteous',cursive;font-size:16px;color:#00ff88;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.result-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(0,255,136,0.08);font-size:13px}
+.result-row:last-child{border:none}
+.result-lbl{color:rgba(255,255,255,0.4);font-weight:700}
+.result-val{color:#00ff88;font-weight:900;font-size:12px;word-break:break-all;text-align:right}
+.result-hint{font-size:11px;color:rgba(255,255,255,0.3);font-weight:700;margin-top:12px;line-height:1.6}
+.btn-back{width:100%;padding:13px;background:transparent;border:1px solid rgba(0,229,255,0.3);border-radius:40px;color:#00e5ff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;transition:0.2s;margin-top:12px;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-back:hover{background:rgba(0,229,255,0.1)}
+</style>
+</head>
+<body>
+<div class="card">
+    <a href="javascript:history.back()" class="back"><i class="fas fa-arrow-left"></i> Kembali</a>
+    <div class="logo">Buat User Panel</div>
+    <div class="subtitle">User email untuk login ke Pterodactyl</div>
+
+    <div class="info-box">
+        <i class="fas fa-info-circle"></i>
+        <span>User ini digunakan sebagai akun login di panel Pterodactyl kamu. Satu user bisa dipakai untuk beberapa server.</span>
+    </div>
+
+    <div class="alert err" id="alertErr"><i class="fas fa-exclamation-circle"></i><span id="alertErrTxt"></span></div>
+
+    <div id="formSection">
+        <label class="lbl">Username</label>
+        <input class="inp" id="username" type="text" placeholder="contoh: botserver1" maxlength="20" autocapitalize="none" oninput="validateU(this)">
+        <div class="hint">3–20 karakter, huruf kecil, angka, underscore</div>
+        <button class="btn" id="btnBuat" onclick="buatUser()"><i class="fas fa-plus-circle"></i> Buat User Panel</button>
+    </div>
+
+    <div class="result-box" id="resultBox">
+        <div class="result-title"><i class="fas fa-check-circle"></i> Berhasil Dibuat!</div>
+        <div class="result-row"><span class="result-lbl">Username</span><span class="result-val" id="resUser">-</span></div>
+        <div class="result-row"><span class="result-lbl">Email Panel</span><span class="result-val" id="resEmail">-</span></div>
+        <div class="result-hint">Tutup halaman ini dan pilih user di form order. User sudah otomatis muncul di dropdown.</div>
+        <a href="javascript:history.back()" class="btn-back"><i class="fas fa-arrow-left"></i> Kembali ke Order</a>
+    </div>
+</div>
+
+<script>
+const Auth={getSession(){try{return JSON.parse(localStorage.getItem('nyzz-session'))}catch{return null}},getToken(){return this.getSession()?.access_token||null},isLoggedIn(){const s=this.getSession();if(!s)return false;if(s.expires_at&&Date.now()/1000>s.expires_at)return false;return true}};
+if(!Auth.isLoggedIn()){window.location.href='/login'}
+
+function validateU(el){const ok=/^[a-z0-9_]{3,20}$/.test(el.value);el.classList.toggle('valid',ok&&el.value.length>0);el.classList.toggle('invalid',!ok&&el.value.length>0)}
+
+document.getElementById('username').addEventListener('keydown',e=>{if(e.key==='Enter')buatUser()});
+
+async function buatUser(){
+    const btn=document.getElementById('btnBuat');
+    const username=document.getElementById('username').value.trim().toLowerCase();
+    const errEl=document.getElementById('alertErr');
+    const errTxt=document.getElementById('alertErrTxt');
+    errEl.classList.remove('show');
+    if(!username){errTxt.textContent='Username wajib diisi';errEl.classList.add('show');return}
+    if(!/^[a-z0-9_]{3,20}$/.test(username)){errTxt.textContent='Username 3-20 karakter, huruf kecil/angka/underscore';errEl.classList.add('show');return}
+    btn.disabled=true;btn.innerHTML='<span class="spinner"></span> Membuat...';
+    try{
+        const r=await fetch('/api/panel?action=create-panel-user',{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+Auth.getToken()},body:JSON.stringify({username})});
+        const data=await r.json();
+        if(!r.ok){errTxt.textContent=data.error||'Gagal membuat user';errEl.classList.add('show');btn.disabled=false;btn.innerHTML='<i class="fas fa-plus-circle"></i> Buat User Panel';return}
+        document.getElementById('resUser').textContent=data.username;
+        document.getElementById('resEmail').textContent=data.ptero_email;
+        document.getElementById('formSection').style.display='none';
+        document.getElementById('resultBox').classList.add('show');
+        sessionStorage.setItem('new_panel_user',JSON.stringify({username:data.username,ptero_email:data.ptero_email}));
+    }catch(e){
+        errTxt.textContent='Gagal menghubungi server: '+e.message;errEl.classList.add('show');
+        btn.disabled=false;btn.innerHTML='<i class="fas fa-plus-circle"></i> Buat User Panel';
+    }
+}
+window.buatUser=buatUser;
+</script>
+</body>
+</html>
