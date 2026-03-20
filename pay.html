@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Bayar — DzzXNzz Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes rainbow  { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes pulse    { 0%,100%{box-shadow:0 0 20px rgba(0,229,255,0.3)} 50%{box-shadow:0 0 50px rgba(0,229,255,0.7)} }
+@keyframes countdown{ from{width:100%} to{width:0%} }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#06070f;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;
+  background-image:radial-gradient(ellipse at 20% 20%,rgba(0,229,255,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(191,0,255,0.06) 0%,transparent 50%),linear-gradient(rgba(0,229,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.04) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,50px 50px,50px 50px}
+.card{background:rgba(13,15,25,0.95);border:1px solid rgba(0,229,255,0.15);border-radius:24px;padding:30px 24px;width:100%;max-width:420px;animation:fadeUp 0.6s ease both}
+.logo{font-family:'Righteous',cursive;font-size:18px;text-align:center;background:linear-gradient(135deg,#00e5ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.title{text-align:center;font-size:13px;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:22px}
+
+/* Timer */
+.timer-bar-wrap{background:rgba(255,255,255,0.07);border-radius:4px;height:4px;margin-bottom:18px;overflow:hidden}
+.timer-bar{height:100%;background:linear-gradient(90deg,#00e5ff,#00ff88);border-radius:4px;transition:width 1s linear}
+.timer-txt{text-align:center;font-size:12px;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:16px}
+.timer-txt span{color:#00e5ff;font-weight:900}
+
+/* QR */
+.qr-wrap{background:#fff;border-radius:16px;padding:16px;margin:0 auto 16px;width:fit-content;animation:pulse 3s ease-in-out infinite}
+.qr-wrap img{display:block;width:200px;height:200px;image-rendering:pixelated}
+.qr-hint{text-align:center;font-size:12px;color:rgba(255,255,255,0.3);font-weight:700;margin-bottom:18px}
+
+/* Jumlah */
+.amount-box{background:rgba(0,229,255,0.06);border:1px solid rgba(0,229,255,0.2);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px}
+.amount-lbl{font-size:11px;color:rgba(255,255,255,0.35);font-weight:900;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+.amount-val{font-family:'Righteous',cursive;font-size:28px;background:linear-gradient(135deg,#00e5ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+
+/* Rows */
+.prow{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid rgba(255,255,255,0.05);font-size:13px}
+.prow:last-child{border:none}
+.prow-lbl{color:rgba(255,255,255,0.4);font-weight:700}
+.prow-val{color:#fff;font-weight:900}
+.prow-val.c{color:#00e5ff}
+
+/* Status */
+.status-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 14px;border-radius:20px;font-size:12px;font-weight:900;margin:0 auto 16px;width:fit-content}
+.status-badge.pending{background:rgba(255,224,0,0.1);border:1px solid rgba(255,224,0,0.3);color:#ffe000}
+.status-badge.paid   {background:rgba(0,255,136,0.1);border:1px solid rgba(0,255,136,0.3);color:#00ff88}
+.status-badge.expired{background:rgba(255,0,0,0.1);border:1px solid rgba(255,0,0,0.3);color:#ff6688}
+.dot{width:6px;height:6px;border-radius:50%;background:currentColor}
+.dot.pending{animation:spin 1.5s linear infinite}
+
+/* Buttons */
+.btn-copy{width:100%;padding:13px;background:rgba(0,229,255,0.1);border:1.5px solid rgba(0,229,255,0.3);border-radius:40px;color:#00e5ff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;transition:0.2s;margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px}
+.btn-copy:hover{background:rgba(0,229,255,0.18)}
+.btn-riwayat{width:100%;padding:13px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:40px;color:rgba(255,255,255,0.5);font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none}
+.btn-riwayat:hover{color:#fff;border-color:rgba(255,255,255,0.25)}
+
+/* Loading */
+.loading{text-align:center;padding:40px 0}
+.spin-ring{width:44px;height:44px;border:3px solid rgba(0,229,255,0.15);border-top-color:#00e5ff;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+.loading p{font-size:14px;color:rgba(255,255,255,0.4);font-weight:700}
+
+/* Expired state */
+.expired-state{text-align:center;padding:20px 0}
+.expired-state i{font-size:40px;color:#ff6688;margin-bottom:12px;display:block}
+.expired-state h3{font-size:17px;margin-bottom:8px}
+.expired-state p{font-size:13px;color:rgba(255,255,255,0.4);font-weight:700;margin-bottom:20px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">DzzXNzz Store</div>
+  <div class="title">Selesaikan Pembayaran</div>
+  <div id="content"><div class="loading"><div class="spin-ring"></div><p>Memuat data...</p></div></div>
+</div>
+
+<script>
+const Auth = {
+  getSession()  { try { return JSON.parse(localStorage.getItem('nyzz-session')); } catch { return null; } },
+  getToken()    { return this.getSession()?.access_token || null; },
+  isLoggedIn()  {
+    const s = this.getSession();
+    if (!s) return false;
+    if (s.expires_at && Date.now()/1000 > s.expires_at) return false;
+    return true;
+  }
+};
+
+if (!Auth.isLoggedIn()) { window.location.href = '/login'; }
+
+const params  = new URLSearchParams(location.search);
+const orderId = params.get('order_id');
+if (!orderId) { window.location.href = '/panel'; }
+
+let pollTimer  = null;
+let countTimer = null;
+let totalSecs  = 0;
+let leftSecs   = 0;
+
+async function loadOrder() {
+  try {
+    const r = await fetch('/api/panel?action=get-panel-order&order_id=' + orderId, { headers:{ Authorization: 'Bearer '+Auth.getToken() } });
+    const o = await r.json();
+    if (!r.ok) { showError(o.error || 'Order tidak ditemukan'); return; }
+    render(o);
+  } catch(e) { showError('Gagal memuat: ' + e.message); }
+}
+
+function render(o) {
+  const status  = (o.status || 'pending').toLowerCase();
+  const isPaid  = status === 'paid' || status === 'active';
+  const isExp   = status === 'expired';
+  const harga   = o.harga ? 'Rp '+Number(o.harga).toLocaleString('id-ID') : '-';
+
+  if (isPaid) {
+    clearInterval(pollTimer); clearInterval(countTimer);
+    window.location.href = '/struk?order_id=' + orderId;
+    return;
+  }
+
+  if (isExp) {
+    clearInterval(pollTimer); clearInterval(countTimer);
+    document.getElementById('content').innerHTML = `
+      <div class="expired-state">
+        <i class="fas fa-times-circle"></i>
+        <h3>Pembayaran Kadaluarsa</h3>
+        <p>Waktu pembayaran habis. Silakan order ulang.</p>
+      </div>
+      <a href="/panel" class="btn-riwayat"><i class="fas fa-arrow-left"></i> Kembali ke Panel</a>`;
+    return;
+  }
+
+  // Hitung countdown
+  if (o.payment_expired) {
+    const expMs = new Date(o.payment_expired).getTime();
+    const nowMs = Date.now();
+    totalSecs   = Math.max(0, Math.round((expMs - new Date(o.created_at || nowMs).getTime()) / 1000));
+    leftSecs    = Math.max(0, Math.round((expMs - nowMs) / 1000));
+  }
+
+  // Buat QR dari qr_string (base64 atau URL)
+  const qrHtml = o.qr_string
+    ? (o.qr_string.startsWith('data:') || o.qr_string.startsWith('http')
+        ? `<img src="${o.qr_string}" alt="QRIS">`
+        : `<img src="data:image/png;base64,${o.qr_string}" alt="QRIS">`)
+    : '<p style="padding:20px;color:#999;font-size:13px">QR tidak tersedia</p>';
+
+  document.getElementById('content').innerHTML = `
+    <div class="timer-bar-wrap"><div class="timer-bar" id="timerBar"></div></div>
+    <div class="timer-txt" id="timerTxt">Sisa waktu: <span id="timerVal">--:--</span></div>
+    <div style="text-align:center;margin-bottom:10px"><div class="status-badge pending"><div class="dot pending"></div> Menunggu Pembayaran</div></div>
+    <div class="qr-wrap">${qrHtml}</div>
+    <div class="qr-hint">Scan QR Code dengan aplikasi pembayaran apapun</div>
+    <div class="amount-box"><div class="amount-lbl">Total Bayar</div><div class="amount-val">${harga}</div></div>
+    <div style="margin-bottom:16px">
+      <div class="prow"><span class="prow-lbl">Order ID</span><span class="prow-val c" style="font-size:11px">${o.order_id}</span></div>
+      <div class="prow"><span class="prow-lbl">Nama Panel</span><span class="prow-val">${o.nama_panel||'-'}</span></div>
+      <div class="prow"><span class="prow-lbl">Paket</span><span class="prow-val">${o.ram_gb||'∞'} GB / ${o.durasi_hari||'-'} Hari</span></div>
+    </div>
+    ${o.qr_string ? `<button class="btn-copy" onclick="copyQR()"><i class="fas fa-copy"></i> Salin Kode QRIS</button>` : ''}
+    <a href="/riwayat" class="btn-riwayat"><i class="fas fa-list"></i> Riwayat Order</a>`;
+
+  startCountdown();
+}
+
+function startCountdown() {
+  clearInterval(countTimer);
+  const bar  = document.getElementById('timerBar');
+  const val  = document.getElementById('timerVal');
+  function tick() {
+    leftSecs = Math.max(0, leftSecs - 1);
+    const pct = totalSecs > 0 ? (leftSecs / totalSecs * 100) : 0;
+    if (bar) { bar.style.width = pct + '%'; bar.style.background = pct > 30 ? 'linear-gradient(90deg,#00e5ff,#00ff88)' : pct > 10 ? 'linear-gradient(90deg,#ffe000,#ff8800)' : 'linear-gradient(90deg,#ff0055,#ff4444)'; }
+    const m = Math.floor(leftSecs/60);
+    const s = leftSecs%60;
+    if (val) val.textContent = m+':'+(s<10?'0':'')+s;
+    if (leftSecs <= 0) { clearInterval(countTimer); loadOrder(); }
+  }
+  tick();
+  countTimer = setInterval(tick, 1000);
+}
+
+function copyQR() {
+  const btn = event.currentTarget;
+  // Ambil qr_string dari order yang sudah ada
+  navigator.clipboard.writeText(orderId).catch(()=>{});
+  btn.innerHTML = '<i class="fas fa-check"></i> Tersalin!';
+  setTimeout(()=>{ btn.innerHTML='<i class="fas fa-copy"></i> Salin Kode QRIS'; }, 2000);
+}
+window.copyQR = copyQR;
+
+function showError(msg) {
+  document.getElementById('content').innerHTML = `
+    <div class="expired-state"><i class="fas fa-exclamation-triangle"></i><h3>Error</h3><p>${msg}</p></div>
+    <a href="/panel" class="btn-riwayat"><i class="fas fa-arrow-left"></i> Kembali</a>`;
+}
+
+loadOrder();
+pollTimer = setInterval(loadOrder, 8000); // cek setiap 8 detik
+</script>
+</body>
+</html>

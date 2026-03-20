@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Login — DzzXNzz Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@keyframes fadeUp  { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes rainbow { 0%{background-position:0% 50%} 50%{background-position:100% 50%} 100%{background-position:0% 50%} }
+@keyframes spin    { to{transform:rotate(360deg)} }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#06070f;color:#fff;min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;
+  background-image:radial-gradient(ellipse at 20% 20%,rgba(0,229,255,0.07) 0%,transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(191,0,255,0.06) 0%,transparent 50%),linear-gradient(rgba(0,229,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.04) 1px,transparent 1px);
+  background-size:100% 100%,100% 100%,50px 50px,50px 50px}
+.card{background:rgba(13,15,25,0.95);border:1px solid rgba(0,229,255,0.15);border-radius:24px;padding:36px 28px;width:100%;max-width:400px;animation:fadeUp 0.6s ease both}
+.logo{font-family:'Righteous',cursive;font-size:22px;text-align:center;background:linear-gradient(135deg,#00e5ff,#00ff88);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
+.subtitle{text-align:center;font-size:13px;color:rgba(255,255,255,0.35);font-weight:700;margin-bottom:28px}
+.lbl{font-size:11px;font-weight:900;color:#00e5ff;letter-spacing:1px;text-transform:uppercase;margin-bottom:6px;display:block}
+.inp{width:100%;padding:13px 16px;background:rgba(0,0,0,0.4);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;color:#fff;font-family:'Nunito',sans-serif;font-size:14px;font-weight:700;outline:none;transition:0.2s;margin-bottom:16px}
+.inp:focus{border-color:#00e5ff;box-shadow:0 0 14px rgba(0,229,255,0.15)}
+.inp::placeholder{color:rgba(255,255,255,0.2)}
+.inp-wrap{position:relative}
+.inp-wrap .inp{padding-right:46px}
+.eye{position:absolute;right:14px;top:50%;transform:translateY(-50%);background:none;border:none;color:rgba(255,255,255,0.3);cursor:pointer;font-size:15px;padding:4px}
+.eye:hover{color:#00e5ff}
+.btn{width:100%;padding:14px;background:linear-gradient(135deg,#00e5ff,#00ff88);border:none;border-radius:40px;color:#06070f;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;transition:0.25s;box-shadow:0 6px 24px rgba(0,229,255,0.35);margin-top:4px}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(0,229,255,0.5)}
+.btn:disabled{opacity:0.6;cursor:not-allowed;transform:none}
+.alert{border-radius:10px;padding:11px 14px;font-size:13px;font-weight:700;margin-bottom:16px;display:none;align-items:center;gap:8px}
+.alert.show{display:flex}
+.alert.err{background:rgba(255,0,0,0.08);border:1px solid rgba(255,0,0,0.2);color:#ff6688}
+.alert.ok{background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.2);color:#00ff88}
+.foot{text-align:center;margin-top:20px;font-size:13px;color:rgba(255,255,255,0.35);font-weight:700}
+.foot a{color:#00e5ff;text-decoration:none;font-weight:900}
+.foot a:hover{text-decoration:underline}
+.divider{height:1px;background:rgba(255,255,255,0.07);margin:20px 0}
+.back{display:flex;align-items:center;justify-content:center;gap:6px;color:rgba(255,255,255,0.3);font-size:13px;font-weight:700;text-decoration:none;margin-bottom:20px;transition:0.2s}
+.back:hover{color:#00e5ff}
+.spinner{width:16px;height:16px;border:2px solid rgba(6,7,15,0.3);border-top-color:#06070f;border-radius:50%;animation:spin 0.7s linear infinite;display:inline-block;vertical-align:middle;margin-right:6px}
+</style>
+</head>
+<body>
+<div class="card">
+  <a href="/" class="back"><i class="fas fa-arrow-left"></i> Kembali</a>
+  <div class="logo">DzzXNzz Store</div>
+  <div class="subtitle">Masuk ke akun kamu</div>
+
+  <div class="alert err" id="alertErr"><i class="fas fa-exclamation-circle"></i><span id="alertErrTxt"></span></div>
+  <div class="alert ok"  id="alertOk" ><i class="fas fa-check-circle"></i><span id="alertOkTxt"></span></div>
+
+  <label class="lbl">Username</label>
+  <input class="inp" id="username" type="text" placeholder="username kamu" autocomplete="username" autocapitalize="none">
+
+  <label class="lbl">Password</label>
+  <div class="inp-wrap">
+    <input class="inp" id="password" type="password" placeholder="password kamu" autocomplete="current-password">
+    <button class="eye" id="eyeBtn" tabindex="-1"><i class="fas fa-eye" id="eyeIcon"></i></button>
+  </div>
+
+  <button class="btn" id="loginBtn" onclick="doLogin()"><i class="fas fa-sign-in-alt"></i> Login</button>
+
+  <div class="divider"></div>
+  <div class="foot">Belum punya akun? <a href="/register">Register</a></div>
+</div>
+
+<script>
+const Auth = {
+  setSession(s) { localStorage.setItem('nyzz-session', JSON.stringify(s)); },
+  isLoggedIn()  {
+    try {
+      const s = JSON.parse(localStorage.getItem('nyzz-session'));
+      if (!s) return false;
+      if (s.expires_at && Date.now()/1000 > s.expires_at) return false;
+      return true;
+    } catch { return false; }
+  }
+};
+
+// Kalau sudah login, redirect
+if (Auth.isLoggedIn()) window.location.href = '/panel';
+
+// Toggle password
+document.getElementById('eyeBtn').onclick = function() {
+  var inp  = document.getElementById('password');
+  var icon = document.getElementById('eyeIcon');
+  if (inp.type === 'password') { inp.type = 'text'; icon.className = 'fas fa-eye-slash'; }
+  else { inp.type = 'password'; icon.className = 'fas fa-eye'; }
+};
+
+// Enter key
+document.getElementById('username').addEventListener('keydown', e => { if(e.key==='Enter') document.getElementById('password').focus(); });
+document.getElementById('password').addEventListener('keydown', e => { if(e.key==='Enter') doLogin(); });
+
+async function doLogin() {
+  const btn      = document.getElementById('loginBtn');
+  const username = document.getElementById('username').value.trim().toLowerCase();
+  const password = document.getElementById('password').value;
+  const errEl    = document.getElementById('alertErr');
+  const errTxt   = document.getElementById('alertErrTxt');
+
+  errEl.classList.remove('show');
+  if (!username || !password) { errTxt.textContent = 'Username dan password wajib diisi'; errEl.classList.add('show'); return; }
+
+  btn.disabled = true;
+  btn.innerHTML = '<span class="spinner"></span> Masuk...';
+
+  try {
+    const r    = await fetch('/api/auth?action=login', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({username, password}) });
+    const data = await r.json();
+    if (!r.ok) { errTxt.textContent = data.error || 'Login gagal'; errEl.classList.add('show'); btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Login'; return; }
+    Auth.setSession(data.session);
+    document.getElementById('alertOkTxt').textContent = 'Login berhasil! Mengalihkan...';
+    document.getElementById('alertOk').classList.add('show');
+    setTimeout(() => { window.location.href = '/panel'; }, 800);
+  } catch(e) {
+    errTxt.textContent = 'Gagal menghubungi server'; errEl.classList.add('show');
+    btn.disabled=false; btn.innerHTML='<i class="fas fa-sign-in-alt"></i> Login';
+  }
+}
+window.doLogin = doLogin;
+</script>
+</body>
+</html>

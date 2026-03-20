@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1">
+<title>Pembayaran Berhasil — DzzXNzz Store</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Righteous&display=swap" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+<style>
+@keyframes fadeUp   { from{opacity:0;transform:translateY(20px)} to{opacity:1;transform:translateY(0)} }
+@keyframes popIn    { 0%{transform:scale(0.5);opacity:0} 70%{transform:scale(1.15)} 100%{transform:scale(1);opacity:1} }
+@keyframes spin     { to{transform:rotate(360deg)} }
+@keyframes confetti { 0%{transform:translateY(-10px) rotate(0deg);opacity:1} 100%{transform:translateY(100vh) rotate(720deg);opacity:0} }
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Nunito',sans-serif;background:#06070f;color:#fff;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;overflow-x:hidden;
+  background-image:radial-gradient(ellipse at 50% 0%,rgba(0,255,136,0.1) 0%,transparent 50%),linear-gradient(rgba(0,229,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,229,255,0.04) 1px,transparent 1px);
+  background-size:100% 100%,50px 50px,50px 50px}
+
+.card{background:rgba(13,15,25,0.95);border:1px solid rgba(0,255,136,0.2);border-radius:24px;padding:32px 24px;width:100%;max-width:420px;animation:fadeUp 0.6s ease both;position:relative;overflow:hidden}
+.card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#00e5ff,#00ff88,#00e5ff);background-size:200%;animation:spin 3s linear infinite}
+
+.check-wrap{text-align:center;margin-bottom:20px}
+.check-circle{width:80px;height:80px;background:linear-gradient(135deg,rgba(0,255,136,0.15),rgba(0,229,255,0.1));border:2px solid rgba(0,255,136,0.4);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto;animation:popIn 0.6s 0.2s cubic-bezier(0.34,1.56,0.64,1) both;font-size:32px;color:#00ff88}
+.check-title{font-family:'Righteous',cursive;font-size:22px;color:#fff;margin-top:16px;margin-bottom:4px}
+.check-sub{font-size:13px;color:rgba(255,255,255,0.4);font-weight:700}
+
+/* Struk */
+.struk{background:rgba(0,0,0,0.3);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:16px;margin-bottom:18px;animation:fadeUp 0.6s 0.3s ease both}
+.struk-title{font-size:10px;font-weight:900;color:rgba(255,255,255,0.3);text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;text-align:center}
+.struk-row{display:flex;justify-content:space-between;align-items:flex-start;padding:7px 0;border-bottom:1px solid rgba(255,255,255,0.04);font-size:13px;gap:10px}
+.struk-row:last-child{border:none}
+.struk-lbl{color:rgba(255,255,255,0.4);font-weight:700;flex-shrink:0}
+.struk-val{color:#fff;font-weight:900;text-align:right;word-break:break-all}
+.struk-val.green{color:#00ff88}
+.struk-val.cyan {color:#00e5ff}
+
+/* Credentials box */
+.cred-box{background:rgba(0,229,255,0.05);border:1px solid rgba(0,229,255,0.2);border-radius:14px;padding:14px;margin-bottom:18px;animation:fadeUp 0.6s 0.4s ease both}
+.cred-title{font-size:10px;font-weight:900;color:#00e5ff;text-transform:uppercase;letter-spacing:1px;margin-bottom:10px;display:flex;align-items:center;gap:6px}
+.cred-row{display:flex;justify-content:space-between;align-items:center;padding:6px 0;border-bottom:1px solid rgba(0,229,255,0.08);font-size:13px}
+.cred-row:last-child{border:none}
+.cred-lbl{color:rgba(255,255,255,0.5);font-weight:700}
+.cred-val{color:#00e5ff;font-weight:900;font-family:monospace;font-size:14px}
+.copy-btn{background:rgba(0,229,255,0.1);border:1px solid rgba(0,229,255,0.25);color:#00e5ff;padding:3px 8px;border-radius:6px;cursor:pointer;font-size:10px;font-weight:900;transition:0.2s;white-space:nowrap}
+.copy-btn:hover{background:rgba(0,229,255,0.2)}
+
+/* Notice */
+.notice{background:rgba(255,224,0,0.06);border:1px solid rgba(255,224,0,0.2);border-radius:12px;padding:12px 14px;font-size:12px;font-weight:700;color:rgba(255,224,0,0.8);display:flex;align-items:flex-start;gap:8px;margin-bottom:18px;animation:fadeUp 0.6s 0.5s ease both}
+
+/* Buttons */
+.btn-green{width:100%;padding:14px;background:linear-gradient(135deg,#00ff88,#00e5ff);border:none;border-radius:40px;color:#06070f;font-family:'Nunito',sans-serif;font-size:15px;font-weight:900;cursor:pointer;transition:0.25s;box-shadow:0 6px 24px rgba(0,255,136,0.35);margin-bottom:10px;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;animation:fadeUp 0.6s 0.5s ease both}
+.btn-green:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(0,255,136,0.5)}
+.btn-outline{width:100%;padding:13px;background:transparent;border:1px solid rgba(255,255,255,0.1);border-radius:40px;color:rgba(255,255,255,0.5);font-family:'Nunito',sans-serif;font-size:14px;font-weight:900;cursor:pointer;transition:0.2s;display:flex;align-items:center;justify-content:center;gap:8px;text-decoration:none;animation:fadeUp 0.6s 0.6s ease both}
+.btn-outline:hover{color:#fff;border-color:rgba(255,255,255,0.25)}
+
+/* Loading */
+.loading{text-align:center;padding:40px 0}
+.spin-ring{width:44px;height:44px;border:3px solid rgba(0,229,255,0.15);border-top-color:#00e5ff;border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div id="content"><div class="loading"><div class="spin-ring"></div><p style="font-size:14px;color:rgba(255,255,255,0.4);font-weight:700">Memuat struk...</p></div></div>
+</div>
+
+<script>
+const Auth = {
+  getSession()  { try { return JSON.parse(localStorage.getItem('nyzz-session')); } catch { return null; } },
+  getToken()    { return this.getSession()?.access_token || null; },
+  isLoggedIn()  {
+    const s = this.getSession();
+    if (!s) return false;
+    if (s.expires_at && Date.now()/1000 > s.expires_at) return false;
+    return true;
+  }
+};
+
+if (!Auth.isLoggedIn()) { window.location.href = '/login'; }
+
+const params  = new URLSearchParams(location.search);
+const orderId = params.get('order_id');
+if (!orderId) { window.location.href = '/riwayat'; }
+
+async function load() {
+  try {
+    const r = await fetch('/api/panel?action=get-panel-order&order_id=' + orderId, { headers:{ Authorization: 'Bearer '+Auth.getToken() } });
+    const o = await r.json();
+    if (!r.ok) { showErr(o.error||'Order tidak ditemukan'); return; }
+    render(o);
+  } catch(e) { showErr(e.message); }
+}
+
+function render(o) {
+  const status   = (o.status||'pending').toLowerCase();
+  const isPaid   = status==='paid'||status==='active';
+  const harga    = o.harga ? 'Rp '+Number(o.harga).toLocaleString('id-ID') : '-';
+  const tglBeli  = o.created_at  ? new Date(o.created_at).toLocaleString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '-';
+  const tglExp   = o.expired_at  ? new Date(o.expired_at).toLocaleString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '-';
+  const tglBayar = o.paid_at     ? new Date(o.paid_at).toLocaleString('id-ID',{day:'numeric',month:'long',year:'numeric',hour:'2-digit',minute:'2-digit'}) : '-';
+
+  const pteroUrl = typeof window !== 'undefined' ? (window.PTERO_URL || 'panel.example.com') : '-';
+
+  document.getElementById('content').innerHTML = `
+    <div class="check-wrap">
+      <div class="check-circle"><i class="fas fa-check"></i></div>
+      <div class="check-title">Pembayaran Berhasil!</div>
+      <div class="check-sub">${isPaid ? 'Panel kamu sudah aktif 🚀' : 'Sedang diproses...'}</div>
+    </div>
+
+    <div class="struk">
+      <div class="struk-title">📋 Struk Pembelian</div>
+      <div class="struk-row"><span class="struk-lbl">Order ID</span><span class="struk-val cyan" style="font-size:11px">${o.order_id}</span></div>
+      <div class="struk-row"><span class="struk-lbl">Nama Panel</span><span class="struk-val">${o.nama_panel||'-'}</span></div>
+      <div class="struk-row"><span class="struk-lbl">Paket</span><span class="struk-val">${o.ram_gb||'∞'} GB / ${o.durasi_hari||'-'} Hari</span></div>
+      <div class="struk-row"><span class="struk-lbl">Tier</span><span class="struk-val">${(o.tier||'-').toUpperCase()}</span></div>
+      <div class="struk-row"><span class="struk-lbl">Total Bayar</span><span class="struk-val green">${harga}</span></div>
+      <div class="struk-row"><span class="struk-lbl">Waktu Beli</span><span class="struk-val" style="font-size:11px">${tglBeli}</span></div>
+      ${o.paid_at ? `<div class="struk-row"><span class="struk-lbl">Waktu Bayar</span><span class="struk-val" style="font-size:11px">${tglBayar}</span></div>` : ''}
+      <div class="struk-row"><span class="struk-lbl">Expired</span><span class="struk-val" style="font-size:11px">${tglExp}</span></div>
+    </div>
+
+    ${o.ptero_email ? `
+    <div class="cred-box">
+      <div class="cred-title"><i class="fas fa-key"></i> Kredensial Panel</div>
+      <div class="cred-row"><span class="cred-lbl">Email</span><div style="display:flex;align-items:center;gap:6px"><span class="cred-val">${o.ptero_email}</span><button class="copy-btn" onclick="copy('${o.ptero_email}',this)">Copy</button></div></div>
+      <div class="cred-row"><span class="cred-lbl">Password</span><div style="display:flex;align-items:center;gap:6px"><span class="cred-val">${o.panel_password||'(lihat di detail)'}</span>${o.panel_password?`<button class="copy-btn" onclick="copy('${o.panel_password}',this)">Copy</button>`:''}</div></div>
+    </div>` : ''}
+
+    <div class="notice"><i class="fas fa-exclamation-triangle" style="margin-top:1px;flex-shrink:0"></i><span>Simpan kredensial di atas. Panel akan otomatis suspend setelah masa berlaku habis.</span></div>
+
+    <a href="/riwayat" class="btn-green"><i class="fas fa-list-alt"></i> Lihat Riwayat Order</a>
+    <a href="/panel"   class="btn-outline"><i class="fas fa-arrow-left"></i> Kembali ke Panel</a>`;
+}
+
+function copy(txt, btn) {
+  navigator.clipboard.writeText(txt).then(()=>{
+    const ori = btn.textContent;
+    btn.textContent = '✓ OK'; btn.style.color='#00ff88';
+    setTimeout(()=>{ btn.textContent=ori; btn.style.color=''; }, 1500);
+  }).catch(()=>{});
+}
+window.copy = copy;
+
+function showErr(msg) {
+  document.getElementById('content').innerHTML = `
+    <div style="text-align:center;padding:30px 0">
+      <i class="fas fa-exclamation-triangle" style="font-size:36px;color:#ff6688;margin-bottom:12px;display:block"></i>
+      <h3 style="margin-bottom:8px">Error</h3>
+      <p style="font-size:13px;color:rgba(255,255,255,0.4);font-weight:700;margin-bottom:20px">${msg}</p>
+    </div>
+    <a href="/riwayat" class="btn-outline" style="display:flex"><i class="fas fa-list"></i> Riwayat Order</a>`;
+}
+
+load();
+</script>
+</body>
+</html>
