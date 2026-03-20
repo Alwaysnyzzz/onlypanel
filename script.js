@@ -63,26 +63,6 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
   }
 
-  // ===== DROPDOWN NAVBAR =====
-  const menuTrigger  = document.getElementById('menuTrigger');
-  const dropdownMenu = document.getElementById('dropdownMenu');
-  if (menuTrigger && dropdownMenu) {
-    if (Auth.isLoggedIn()) {
-      dropdownMenu.innerHTML = `
-        <a href="/profile" class="dropdown-item"><i class="fas fa-user"></i> Akun</a>
-        <a href="#" id="dropdownLogout" class="dropdown-item"><i class="fas fa-sign-out-alt"></i> Logout</a>`;
-      document.getElementById('dropdownLogout')?.addEventListener('click', e => {
-        e.preventDefault(); Auth.logout(); window.location.href = '/login';
-      });
-    } else {
-      dropdownMenu.innerHTML = `
-        <a href="/login" class="dropdown-item"><i class="fas fa-sign-in-alt"></i> Login</a>
-        <a href="/register" class="dropdown-item"><i class="fas fa-user-plus"></i> Register</a>`;
-    }
-    menuTrigger.addEventListener('click', e => { e.stopPropagation(); dropdownMenu.classList.toggle('show'); });
-    document.addEventListener('click', e => { if (!menuTrigger.contains(e.target)) dropdownMenu.classList.remove('show'); });
-  }
-
   // ===== LOCK SIDEBAR NAME =====
   function lockSidebarName() {
     document.querySelectorAll('.user-name-text').forEach(el => {
