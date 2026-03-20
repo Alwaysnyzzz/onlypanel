@@ -481,11 +481,11 @@
 
     <div class="sidebar" id="sidebar">
         <!-- Header: tampil username kalau login, logo kalau belum -->
-        <div class="sidebar-header" id="sidebarHeader">
-            <span class="user-name-text" id="sidebarUsername">DzzXNzz</span>
+        <div class="sidebar-header">
+            <span class="user-name-text">DzzXNzz</span>
             <div class="sidebar-pfp">
-                <img id="sidebarAvatar" src=/image/image.jpg alt="PFP"
-                    onerror="this.src='https://ui-avatars.com/api/?name=?&background=06070f&color=00e5ff&bold=true'">
+                <img src="/image/image.jpg" alt="DzzXNzz"
+                    onerror="this.src='https://ui-avatars.com/api/?name=DzzXNzz&background=06070f&color=00e5ff&bold=true'">
             </div>
         </div>
         <!-- Menu utama -->
@@ -1017,24 +1017,13 @@
         // ===== UPDATE SIDEBAR AUTH =====
         (function() {
             var menu    = document.getElementById('sidebarAuthMenu');
-            var uname   = document.getElementById('sidebarUsername');
-            var avatar  = document.getElementById('sidebarAvatar');
             var isLogin = typeof Auth !== 'undefined' && Auth.isLoggedIn();
 
             if (isLogin) {
-                // Tampil username
-                var username = localStorage.getItem('nyzz_username') || 'User';
-                if (uname) uname.textContent = username;
-                if (avatar) avatar.src = 'https://ui-avatars.com/api/?name='+encodeURIComponent(username)+'&background=06070f&color=00e5ff&bold=true';
-
-                // Menu: Logout saja
                 if (menu) menu.innerHTML =
                     '<li><a class="sidebar-auth-btn logout" onclick="doLogout()">'+
                     '<i class="fas fa-sign-out-alt"></i> Logout</a></li>';
             } else {
-                // Menu: Login + Register
-                if (uname) uname.textContent = 'Tamu';
-                if (avatar) avatar.src = 'https://ui-avatars.com/api/?name=?&background=06070f&color=ffffff&bold=true';
                 if (menu) menu.innerHTML =
                     '<li><a href="/login" class="sidebar-auth-btn login">'+
                     '<i class="fas fa-sign-in-alt"></i> Login</a></li>'+
